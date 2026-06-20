@@ -24,7 +24,7 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght=0,300;0,400;1,300&family=Inter:wght=200;300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -124,7 +124,6 @@
     </div>
 
     <script>
-        // Data Pipelines (Restored to .png with archive_05 removed)
         const dataSet = {
             liveries: {
                 greeting: "The following images are part of my portfolio of ERLC liveries.",
@@ -136,9 +135,7 @@
                     "assets/images/showroom_05.png"
                 ],
                 folder: [
-                    // First 5 showcase duplicates
                     "assets/images/showroom_01.png", "assets/images/showroom_02.png", "assets/images/showroom_03.png", "assets/images/showroom_04.png", "assets/images/showroom_05.png",
-                    // Next 5 extra photos (archive_05 is omitted)
                     "assets/images/archive_01.png", "assets/images/archive_02.png", "assets/images/archive_03.png", "assets/images/archive_04.png", "assets/images/archive_06.png"
                 ]
             },
@@ -152,20 +149,17 @@
                     "assets/images/banner_05.png"
                 ],
                 folder: [
-                    // First 5 showcase duplicates
                     "assets/images/banner_01.png", "assets/images/banner_02.png", "assets/images/banner_03.png", "assets/images/banner_04.png", "assets/images/banner_05.png",
-                    // Next 5 extra banner photos (Fixed: Swapped livery archive files out for banner sets)
                     "assets/images/banner_01.png", "assets/images/banner_02.png", "assets/images/banner_03.png", "assets/images/banner_04.png", "assets/images/banner_05.png"
                 ]
             }
         };
 
         let currentTab = 'liveries';
-        let currentIndex = 0; // 0 to 4 are images, 5 is the folder
+        let currentIndex = 0; 
         const totalSteps = 6;
         let isTransitioning = false;
 
-        // Ambient Audio Track Reference
         const audio = document.getElementById('bg-audio');
         const audioToggle = document.getElementById('audio-toggle');
         const audioIcon = document.getElementById('audio-icon');
@@ -173,21 +167,14 @@
         function openShowcase(tab) {
             currentTab = tab;
             currentIndex = 0;
-            
-            // Set dynamic greeting text
             document.getElementById('greeting-text').innerText = dataSet[tab].greeting;
-            
-            // Clear out anything left behind in the DOM and rebuild completely fresh
             renderShowcaseContent();
 
-            // Slide panel smoothly in from right to left
             const panel = document.getElementById('showcase-panel');
             panel.style.transition = "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
             panel.classList.remove('translate-x-full');
-            
             updateStackLayout();
 
-            // INSTANT AUDIO TRIGGER: Plays when clicking a tab
             if (audio.paused) {
                 audio.play().catch(() => console.log("Audio play request caught."));
                 audioIcon.className = 'fa-solid fa-pause';
@@ -203,26 +190,23 @@
             const carousel = document.getElementById('stack-carousel');
             const grid = document.getElementById('folder-grid');
             
-            // Ensure the grids are fully wiped clean before inserting new items
             carousel.innerHTML = '';
             grid.innerHTML = '';
 
-            // Handle image behavior depending on whether it's wide banners or standard dimensions
             const imgFitClass = currentTab === 'banners' ? 'object-contain bg-stone-900/5' : 'object-cover';
 
-            // Inject 5 Showcase Images (Added style dynamic for 22.37% Apple Rounding Rule)
+            // FIXED: Using Tailwind's rounded-2xl (16px radius) for consistent rectangle rounding without stretching
             dataSet[currentTab].showcase.forEach((imgSrc, i) => {
                 carousel.innerHTML += `
-                    <div id="card-${i}" class="showcase-card absolute w-[80%] md:w-[55%] h-[50vh] md:h-[60vh] bg-showroom border border-stone-200 p-3 shadow-md flex items-center justify-center transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" style="border-radius: 22.37%;">
-                        <img src="${imgSrc}" alt="Showcase ${i+1}" class="w-full h-full ${imgFitClass} shadow-inner" style="border-radius: calc(22.37% - 4px);">
+                    <div id="card-${i}" class="showcase-card absolute w-[80%] md:w-[55%] h-[50vh] md:h-[60vh] bg-showroom border border-stone-200 p-3 shadow-md flex items-center justify-center transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-3xl">
+                        <img src="${imgSrc}" alt="Showcase ${i+1}" class="w-full h-full ${imgFitClass} shadow-inner rounded-2xl">
                     </div>
                 `;
             });
 
-            // Inject 10 Folder Items uniquely tied to the active tab dataset
             dataSet[currentTab].folder.forEach((imgSrc, i) => {
                 grid.innerHTML += `
-                    <div class="group relative overflow-hidden bg-stone-100 border border-stone-200 aspect-[4/3] shadow-sm transition-all duration-500 hover:scale-[1.03] hover:shadow-xl clickable" style="border-radius: 22.37%;">
+                    <div class="group relative overflow-hidden bg-stone-100 border border-stone-200 aspect-[4/3] shadow-sm transition-all duration-500 hover:scale-[1.03] hover:shadow-xl clickable rounded-xl">
                         <img src="${imgSrc}" alt="Archive ${i+1}" class="w-full h-full ${imgFitClass} filter grayscale group-hover:grayscale-0 transition-all duration-700 ease-out">
                         <div class="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                     </div>
@@ -236,24 +220,20 @@
             const folderView = document.getElementById('folder-view');
             const arrowIcon = document.getElementById('arrow-icon');
 
-            // Counter Update
             counter.innerText = `${currentIndex + 1} / ${totalSteps}`;
 
-            // Adjust Arrow Orientation
             if (currentIndex === totalSteps - 1) {
-                arrowIcon.className = 'fa-solid fa-arrow-down text-xs'; // Point down on final step to restart
+                arrowIcon.className = 'fa-solid fa-arrow-down text-xs'; 
             } else {
                 arrowIcon.className = 'fa-solid fa-arrow-up text-xs';
             }
 
-            // Handle Folder Visibility Transition
             if (currentIndex === 5) {
                 folderView.classList.remove('translate-y-full', 'opacity-0');
             } else {
                 folderView.classList.add('translate-y-full', 'opacity-0');
             }
 
-            // Update Positioning Weights for Active Stack elements
             for (let i = 0; i < 5; i++) {
                 const card = document.getElementById(`card-${i}`);
                 if (!card) continue;
@@ -261,27 +241,22 @@
                 let offset = i - currentIndex;
 
                 if (offset === 0) {
-                    // Current Focused Item: Dead Center
                     card.style.transform = `translateY(0px) scale(1)`;
                     card.style.opacity = "1";
                     card.style.zIndex = "10";
                 } else if (offset === 1) {
-                    // Peek Item Below
                     card.style.transform = `translateY(78%) scale(0.92)`;
                     card.style.opacity = "0.4";
                     card.style.zIndex = "5";
                 } else if (offset === -1) {
-                    // Peek Item Above
                     card.style.transform = `translateY(-78%) scale(0.92)`;
                     card.style.opacity = "0.4";
                     card.style.zIndex = "5";
                 } else if (offset < -1) {
-                    // Displaced Further Upward out of screen space
                     card.style.transform = `translateY(-150%) scale(0.8)`;
                     card.style.opacity = "0";
                     card.style.zIndex = "1";
                 } else {
-                    // Displaced Further Downward out of screen space
                     card.style.transform = `translateY(150%) scale(0.8)`;
                     card.style.opacity = "0";
                     card.style.zIndex = "1";
@@ -291,7 +266,7 @@
 
         function advanceStack() {
             if (currentIndex >= totalSteps - 1) {
-                currentIndex = 0; // Wrap back to first item cleanly
+                currentIndex = 0; 
             } else {
                 currentIndex++;
             }
@@ -305,11 +280,9 @@
             }
         }
 
-        // Native Mouse Wheel Integration targeting global presentation flow inside viewport
         document.getElementById('showcase-panel').addEventListener('wheel', (e) => {
             if (isTransitioning) return;
             
-            // Let internal folder scroll naturally without triggering carousel shifting
             if (currentIndex === 5) {
                 const grid = document.getElementById('folder-grid');
                 if (e.deltaY < 0 && grid.scrollTop === 0) {
@@ -334,7 +307,6 @@
             setTimeout(() => { isTransitioning = false; }, 800);
         }
 
-        // Manual Audio Toggle Control logic
         audioToggle.addEventListener('click', () => {
             if (audio.paused) {
                 audio.play().catch(() => console.log("Audio block bypass required."));
@@ -345,7 +317,6 @@
             }
         });
 
-        // Fluid Kinematic Cursor Engine
         const cursor = document.getElementById('custom-cursor');
         let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
 
