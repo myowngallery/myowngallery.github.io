@@ -1,187 +1,393 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
-    <!-- Tailwind CSS CDN -->
+    <title>@vu5a — Portfolio Showroom</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Cormorant Garamond', 'serif'],
+                    },
+                    colors: {
+                        showroom: '#f5f4f0', 
+                        ink: '#1c1b18',      
+                        studio: '#ebeae4',   
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@200;300;400&display=swap');
-        
-        .font-serif { font-family: 'Cormorant Garamond', serif; }
-        .font-sans { font-family: 'Inter', sans-serif; }
+        /* Custom luxury cursor tweak */
+        @media (min-width: 768px) {
+            body, a, button, .group, .clickable {
+                cursor: none !important;
+            }
+        }
+        /* Custom scrollbar hiding for the panel experience */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Smooth scroll revealing */
-        html { scroll-behavior: smooth; }
-        
-        /* Custom fine scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #1a1a1a; }
-        ::-webkit-scrollbar-thumb:hover { background: #333; }
+        /* Smooth transition for active showcase cards */
+        .showcase-card {
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
     </style>
 </head>
-<body class="bg-[#050505] text-[#e5e5e5] font-sans antialiased selection:bg-neutral-900 selection:text-white">
+<body class="bg-showroom text-ink font-sans selection:bg-ink selection:text-showroom antialiased overflow-hidden w-screen h-screen">
 
-    <!-- Minimalist Header -->
-    <header class="fixed top-0 left-0 w-full z-50 mix-blend-difference px-8 py-6 flex justify-between items-center">
-        <!-- Static Brand Name (No longer links to top) -->
-        <span class="text-xs tracking-[0.3em] font-light uppercase text-white cursor-default select-none">My Gallery</span>
-        
-        <!-- Controls Group -->
-        <div class="flex items-center gap-6">
-            <!-- Discord Connect Button -->
-            <a href="https://discord.gg/2gxHQVQyQC" target="_blank" rel="noopener noreferrer" class="text-[10px] tracking-widest text-neutral-400 hover:text-white transition flex items-center gap-3 group">
-                <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 group-hover:bg-[#5865F2] transition"></span>
-                <span>CONNECT</span>
+    <!-- Custom Follower Cursor -->
+    <div id="custom-cursor" class="hidden md:flex fixed top-0 left-0 w-3 h-3 bg-ink rounded-full pointer-events-none z-50 mix-blend-difference items-center justify-center text-[9px] tracking-widest text-showroom uppercase font-light opacity-0 transition-[width,height,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
+
+    <!-- Ambience Audio Control -->
+    <div class="fixed bottom-6 right-6 z-50 bg-showroom/80 backdrop-blur-md border border-stone-300/60 px-4 py-2.5 rounded-full flex items-center gap-3 shadow-sm transition-all duration-300 hover:border-stone-400">
+        <span class="text-[10px] tracking-widest text-stone-500 uppercase font-light">Ambience</span>
+        <button id="audio-toggle" class="w-6 h-6 flex items-center justify-center text-xs text-ink/70 hover:text-ink focus:outline-none transition-colors">
+            <i id="audio-icon" class="fa-solid fa-play"></i>
+        </button>
+        <audio id="bg-audio" loop src="assets/audio/ambience.mp3"></audio>
+    </div>
+
+    <!-- MAIN LANDING PAGE LAYER -->
+    <main class="w-full h-full flex flex-col justify-between p-6 md:p-12 relative z-10">
+        <header class="w-full flex justify-between items-center">
+            <span class="font-serif italic text-xl tracking-wide">@vu5a</span>
+            <span class="text-[10px] tracking-[0.3em] uppercase text-stone-400 font-light">Portfolio 2026</span>
+        </header>
+
+        <!-- Welcome Hero Section -->
+        <section class="max-w-4xl mx-auto text-center my-auto flex flex-col items-center">
+            <h1 class="font-serif text-6xl md:text-8xl font-light text-ink tracking-tight mb-2">Portfolio</h1>
+            <p class="font-serif text-xl italic text-stone-500 mb-6">by @vu5a</p>
+            
+            <p class="font-sans font-light text-stone-600 text-sm md:text-base max-w-md tracking-wider leading-relaxed mb-8 uppercase text-xs">
+                Livery, Banner, and Embed Designer
+            </p>
+
+            <!-- Connect to Discord Button -->
+            <a href="https://discord.gg/2gxHQVQyQC" target="_blank" class="clickable inline-flex items-center gap-3 border border-ink px-8 py-3.5 text-xs tracking-[0.2em] uppercase text-ink hover:bg-ink hover:text-showroom transition-all duration-500 rounded-full group">
+                <i class="fa-brands fa-discord transition-transform group-hover:scale-110"></i> Connect with me
             </a>
 
-            <!-- Audio Ambient Trigger -->
-            <button id="audioBtn" class="text-[10px] tracking-widest text-neutral-400 hover:text-white transition flex items-center gap-3 group">
-                <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 group-hover:bg-white transition" id="audioDot"></span>
-                <span id="audioStatusText">PLAY AUDIO</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Hidden Audio Element -->
-    <audio id="bgAmbience" loop src="assets/audio/ambience.mp3"></audio>
-
-    <!-- Hero Introduction Split -->
-    <section class="min-h-screen flex flex-col justify-end px-8 pb-24 pt-32 max-w-7xl mx-auto border-b border-neutral-950">
-        <div class="max-w-3xl space-y-4">
-            <p class="text-xs tracking-[0.2em] text-neutral-500 uppercase">Automotive Architecture / Digital Liveries</p>
-            <h2 class="text-4xl md:text-7xl font-serif font-light italic text-neutral-200 leading-tight">
-                The following images are part of my portfolio of ERLC liveries.
-            </h2>
-        </div>
-    </section>
-
-    <!-- Editorial Gallery Main Grid -->
-    <main class="max-w-7xl mx-auto px-8 py-24 space-y-40">
-
-        <!-- Section 1: Main Showroom Exhibition (Asymmetrical Staggered Layout) -->
-        <section class="space-y-24">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-neutral-900 pb-6">
-                <span class="text-[10px] tracking-[0.3em] text-neutral-600 uppercase font-bold">01 / CURRENT EXHIBITS</span>
-                <h3 class="text-xl font-serif font-light text-neutral-400 mt-2 md:mt-0">The Showroom Suite</h3>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-x-12 items-center">
-                <!-- Large Feature Image -->
-                <div class="md:col-span-8 space-y-4">
-                    <div class="overflow-hidden bg-neutral-950 aspect-[16/10] grayscale hover:grayscale-0 transition-all duration-700">
-                        <img src="assets/images/showroom_01.png" alt="Showroom 01" class="w-full h-full object-cover">
-                    </div>
-                </div>
-                
-                <!-- Staggered Right Side Image -->
-                <div class="md:col-span-4 md:mt-32 space-y-4">
-                    <div class="overflow-hidden bg-neutral-950 aspect-[4/5] grayscale hover:grayscale-0 transition-all duration-700">
-                        <img src="assets/images/showroom_02.png" alt="Showroom 02" class="w-full h-full object-cover">
-                    </div>
-                </div>
-
-                <!-- Left Staggered Image -->
-                <div class="md:col-span-5 space-y-4">
-                    <div class="overflow-hidden bg-neutral-950 aspect-[4/5] grayscale hover:grayscale-0 transition-all duration-700">
-                        <img src="assets/images/showroom_03.png" alt="Showroom 03" class="w-full h-full object-cover">
-                    </div>
-                </div>
-
-                <!-- Double Wide Right Side -->
-                <div class="md:col-span-7 space-y-4">
-                    <div class="overflow-hidden bg-neutral-950 aspect-[16/10] grayscale hover:grayscale-0 transition-all duration-700">
-                        <img src="assets/images/showroom_04.png" alt="Showroom 04" class="w-full h-full object-cover">
-                    </div>
-                </div>
-
-                <!-- Centered Final Showroom Piece -->
-                <div class="md:col-start-3 md:col-span-8 space-y-4 pt-12">
-                    <div class="overflow-hidden bg-neutral-950 aspect-[16/9] grayscale hover:grayscale-0 transition-all duration-700">
-                        <img src="assets/images/showroom_05.png" alt="Showroom 05" class="w-full h-full object-cover">
-                    </div>
-                </div>
+            <!-- Tabs Switcher Buttons -->
+            <div class="flex gap-4 mt-16 border-t border-stone-200 pt-8 w-64 justify-center">
+                <button onclick="openShowcase('liveries')" class="clickable text-[11px] tracking-[0.2em] uppercase text-stone-400 hover:text-ink transition-colors font-medium">Liveries</button>
+                <span class="text-stone-300">/</span>
+                <button onclick="openShowcase('banners')" class="clickable text-[11px] tracking-[0.2em] uppercase text-stone-400 hover:text-ink transition-colors font-medium">Banners</button>
             </div>
         </section>
 
-        <!-- Section 2: Archive Collection (Pure Minimalist Vertical Scroll) -->
-        <section class="space-y-24 pt-12">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-neutral-900 pb-6">
-                <span class="text-[10px] tracking-[0.3em] text-neutral-600 uppercase font-bold">02 / HISTORICAL EDITIONS</span>
-                <h3 class="text-xl font-serif font-light text-neutral-400 mt-2 md:mt-0">The Livery Archive</h3>
-            </div>
-
-            <!-- Massive alternating display stack -->
-            <div class="space-y-48">
-                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
-                    <img src="assets/images/archive_01.png" alt="Archive 01" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
-                </div>
-
-                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
-                    <img src="assets/images/archive_02.png" alt="Archive 02" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
-                </div>
-
-                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
-                    <img src="assets/images/archive_03.png" alt="Archive 03" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
-                </div>
-
-                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
-                    <img src="assets/images/archive_04.png" alt="Archive 04" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
-                </div>
-
-                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
-                    <img src="assets/images/archive_05.png" alt="Archive 05" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
-                </div>
-
-                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
-                    <img src="assets/images/archive_06.png" alt="Archive 06" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
-                </div>
-            </div>
-        </section>
-
+        <footer class="w-full text-center text-[10px] tracking-widest text-stone-400 font-light">
+            &copy; 2026 @vu5a. Designed for clean aesthetics.
+        </footer>
     </main>
 
-    <!-- Refined Footer -->
-    <footer class="w-full py-16 px-8 border-t border-neutral-950 flex flex-col md:flex-row justify-between items-center text-[10px] tracking-[0.2em] text-neutral-600 uppercase gap-4">
-        <div>&copy; 2026 MYOWNGALLERY.</div>
-        <div class="font-serif italic lowercase text-xs text-neutral-500">curated with absolute discretion</div>
-    </footer>
+    <!-- DYNAMIC SHOWCASE SLIDE PANEL -->
+    <div id="showcase-panel" class="fixed top-0 right-0 w-full h-full bg-studio z-30 transform translate-x-full transition-transform duration-[1000s] cubic-bezier(0.16, 1, 0.3, 1) flex flex-col shadow-2xl border-l border-stone-200">
+        
+        <!-- Showcase Header & Dynamic Greeting text -->
+        <header class="p-6 md:px-12 md:py-8 flex justify-between items-center bg-studio/90 backdrop-blur-md border-b border-stone-200/60 z-40">
+            <div>
+                <button onclick="closeShowcase()" class="clickable text-[11px] tracking-[0.2em] uppercase text-stone-500 hover:text-ink transition-colors mb-1"><i class="fa-solid fa-arrow-left mr-2"></i> Back</button>
+                <p id="greeting-text" class="text-xs text-stone-400 italic font-serif mt-1"></p>
+            </div>
+            <span class="font-serif italic text-lg tracking-wide">@vu5a</span>
+        </header>
 
-    <!-- Seamless Audio Player System -->
+        <!-- Main Experience Container -->
+        <div id="experience-viewport" class="flex-1 relative overflow-hidden flex items-center justify-center">
+            
+            <!-- STACKED CAROUSEL CONTAINER (Images 1 to 5) -->
+            <div id="stack-carousel" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center transition-all duration-700 pointer-events-none">
+                <!-- Cards injected programmatically by the js engine -->
+            </div>
+
+            <!-- FOLDER OVERLAY COMPONENT (6th Frame) -->
+            <div id="folder-view" class="absolute inset-x-6 bottom-6 top-6 md:inset-12 bg-showroom border border-stone-300/80 shadow-2xl rounded-lg transform translate-y-full opacity-0 transition-all duration-[900ms] cubic-bezier(0.16, 1, 0.3, 1) z-20 flex flex-col p-6 overflow-hidden">
+                <div class="flex justify-between items-center border-b border-stone-200 pb-4 mb-6">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-regular fa-folder-open text-stone-500"></i>
+                        <h4 class="font-serif text-xl italic text-ink">Extended Index Archive</h4>
+                    </div>
+                    <span class="text-[9px] tracking-widest text-stone-400 uppercase">10 Collected Items</span>
+                </div>
+                <!-- Mini Grid -->
+                <div id="folder-grid" class="grid grid-cols-2 md:grid-cols-5 gap-4 flex-1 overflow-y-auto no-scrollbar pb-4">
+                    <!-- 10 boxes injected here -->
+                </div>
+            </div>
+
+            <!-- Navigation Controls overlaying viewport -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 flex flex-col items-center gap-1">
+                <button id="nav-arrow" onclick="advanceStack()" class="clickable w-10 h-10 bg-showroom/80 backdrop-blur-sm border border-stone-300 rounded-full flex items-center justify-center text-stone-600 shadow-sm hover:border-stone-500 hover:text-ink transition-all">
+                    <i id="arrow-icon" class="fa-solid fa-arrow-up text-xs"></i>
+                </button>
+                <span id="stack-counter" class="text-[9px] tracking-widest text-stone-400 uppercase mt-1">1 / 6</span>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- RE-ENGINEERED DATA & ENGINE SCRIPTS -->
     <script>
-        const audio = document.getElementById('bgAmbience');
-        const audioBtn = document.getElementById('audioBtn');
-        const dot = document.getElementById('audioDot');
-        const text = document.getElementById('audioStatusText');
+        // Data Pipelines (Restored to .png with archive_05 removed)
+        const dataSet = {
+            liveries: {
+                greeting: "The following images are part of my portfolio of ERLC liveries.",
+                showcase: [
+                    "assets/images/showroom_01.png",
+                    "assets/images/showroom_02.png",
+                    "assets/images/showroom_03.png",
+                    "assets/images/showroom_04.png",
+                    "assets/images/showroom_05.png"
+                ],
+                folder: [
+                    // First 5 showcase duplicates
+                    "assets/images/showroom_01.png", "assets/images/showroom_02.png", "assets/images/showroom_03.png", "assets/images/showroom_04.png", "assets/images/showroom_05.png",
+                    // Next 5 extra photos (archive_05 is omitted)
+                    "assets/images/archive_01.png", "assets/images/archive_02.png", "assets/images/archive_03.png", "assets/images/archive_04.png", "assets/images/archive_06.png"
+                ]
+            },
+            banners: {
+                greeting: "The following images are part of my portfolio of Discord banners.",
+                showcase: [
+                    "assets/images/banner_01.png",
+                    "assets/images/banner_02.png",
+                    "assets/images/banner_03.png",
+                    "assets/images/banner_04.png",
+                    "assets/images/banner_05.png"
+                ],
+                folder: [
+                    // First 5 showcase duplicates
+                    "assets/images/banner_01.png", "assets/images/banner_02.png", "assets/images/banner_03.png", "assets/images/banner_04.png", "assets/images/banner_05.png",
+                    // Next 5 extra photos
+                    "assets/images/archive_06.png", "assets/images/archive_02.png", "assets/images/archive_03.png", "assets/images/archive_04.png", "assets/images/archive_01.png"
+                ]
+            }
+        };
 
-        audioBtn.addEventListener('click', () => {
+        let currentTab = 'liveries';
+        let currentIndex = 0; // 0 to 4 are images, 5 is the folder
+        const totalSteps = 6;
+        let isTransitioning = false;
+
+        // Ambient Audio Track Reference
+        const audio = document.getElementById('bg-audio');
+        const audioToggle = document.getElementById('audio-toggle');
+        const audioIcon = document.getElementById('audio-icon');
+
+        function openShowcase(tab) {
+            currentTab = tab;
+            currentIndex = 0;
+            
+            // Set dynamic greeting text
+            document.getElementById('greeting-text').innerText = dataSet[tab].greeting;
+            
+            // Build Showcase Cards & Folders
+            renderShowcaseContent();
+
+            // Slide panel smoothly in from right to left
+            const panel = document.getElementById('showcase-panel');
+            panel.style.transition = "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
+            panel.classList.remove('translate-x-full');
+            
+            updateStackLayout();
+
+            // INSTANT AUDIO TRIGGER: Plays when clicking a tab
             if (audio.paused) {
-                audio.play().then(() => {
-                    dot.classList.remove('bg-neutral-600');
-                    dot.classList.add('bg-white', 'animate-pulse');
-                    text.innerText = "MUTE AUDIO";
-                }).catch(err => console.log("Audio block active:", err));
+                audio.play().catch(() => console.log("Audio play request caught."));
+                audioIcon.className = 'fa-solid fa-pause';
+            }
+        }
+
+        function closeShowcase() {
+            const panel = document.getElementById('showcase-panel');
+            panel.classList.add('translate-x-full');
+        }
+
+        function renderShowcaseContent() {
+            const carousel = document.getElementById('stack-carousel');
+            const grid = document.getElementById('folder-grid');
+            
+            carousel.innerHTML = '';
+            grid.innerHTML = '';
+
+            // Inject 5 Showcase Images
+            dataSet[currentTab].showcase.forEach((imgSrc, i) => {
+                carousel.innerHTML += `
+                    <div id="card-${i}" class="showcase-card absolute w-[80%] md:w-[55%] h-[50vh] md:h-[60vh] bg-showroom border border-stone-200 p-3 shadow-md rounded flex items-center justify-center transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                        <img src="${imgSrc}" alt="Showcase ${i+1}" class="w-full h-full object-cover rounded shadow-inner">
+                    </div>
+                `;
+            });
+
+            // Inject 10 Folder Items
+            dataSet[currentTab].folder.forEach((imgSrc, i) => {
+                grid.innerHTML += `
+                    <div class="group relative overflow-hidden bg-stone-100 border border-stone-200 aspect-[4/3] rounded shadow-sm transition-all duration-500 hover:scale-[1.03] hover:shadow-xl clickable">
+                        <img src="${imgSrc}" alt="Archive ${i+1}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 ease-out">
+                        <div class="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    </div>
+                `;
+            });
+            bindCursorEvents();
+        }
+
+        function updateStackLayout() {
+            const counter = document.getElementById('stack-counter');
+            const folderView = document.getElementById('folder-view');
+            const arrowIcon = document.getElementById('arrow-icon');
+
+            // Counter Update
+            counter.innerText = `${currentIndex + 1} / ${totalSteps}`;
+
+            // Adjust Arrow Orientation
+            if (currentIndex === totalSteps - 1) {
+                arrowIcon.className = 'fa-solid fa-arrow-down text-xs'; // Point down on final step to restart
             } else {
-                audio.pause();
-                dot.classList.add('bg-neutral-600');
-                dot.classList.remove('bg-white', 'animate-pulse');
-                text.innerText = "PLAY AUDIO";
+                arrowIcon.className = 'fa-solid fa-arrow-up text-xs';
+            }
+
+            // Handle Folder Visibility Transition
+            if (currentIndex === 5) {
+                folderView.classList.remove('translate-y-full', 'opacity-0');
+            } else {
+                folderView.classList.add('translate-y-full', 'opacity-0');
+            }
+
+            // Update Positioning Weights for Active Stack elements
+            for (let i = 0; i < 5; i++) {
+                const card = document.getElementById(`card-${i}`);
+                if (!card) continue;
+
+                let offset = i - currentIndex;
+
+                if (offset === 0) {
+                    // Current Focused Item: Dead Center
+                    card.style.transform = `translateY(0px) scale(1)`;
+                    card.style.opacity = "1";
+                    card.style.zIndex = "10";
+                } else if (offset === 1) {
+                    // Peek Item Below
+                    card.style.transform = `translateY(78%) scale(0.92)`;
+                    card.style.opacity = "0.4";
+                    card.style.zIndex = "5";
+                } else if (offset === -1) {
+                    // Peek Item Above
+                    card.style.transform = `translateY(-78%) scale(0.92)`;
+                    card.style.opacity = "0.4";
+                    card.style.zIndex = "5";
+                } else if (offset < -1) {
+                    // Displaced Further Upward out of screen space
+                    card.style.transform = `translateY(-150%) scale(0.8)`;
+                    card.style.opacity = "0";
+                    card.style.zIndex = "1";
+                } else {
+                    // Displaced Further Downward out of screen space
+                    card.style.transform = `translateY(150%) scale(0.8)`;
+                    card.style.opacity = "0";
+                    card.style.zIndex = "1";
+                }
+            }
+        }
+
+        function advanceStack() {
+            if (currentIndex >= totalSteps - 1) {
+                currentIndex = 0; // Wrap back to first item cleanly
+            } else {
+                currentIndex++;
+            }
+            updateStackLayout();
+        }
+
+        function retreatStack() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateStackLayout();
+            }
+        }
+
+        // Native Mouse Wheel Integration targeting global presentation flow inside viewport
+        document.getElementById('showcase-panel').addEventListener('wheel', (e) => {
+            if (isTransitioning) return;
+            
+            // Let internal folder scroll naturally without triggering carousel shifting
+            if (currentIndex === 5) {
+                const grid = document.getElementById('folder-grid');
+                if (e.deltaY < 0 && grid.scrollTop === 0) {
+                    currentIndex--;
+                    updateStackLayout();
+                    debounceScroll();
+                }
+                return;
+            }
+
+            if (e.deltaY > 20) {
+                advanceStack();
+                debounceScroll();
+            } else if (e.deltaY < -20) {
+                retreatStack();
+                debounceScroll();
             }
         });
 
-        // Trigger safe background audio loop initialization on primitive global touch
-        document.body.addEventListener('click', () => {
-            if (audio.paused && text.innerText === "PLAY AUDIO" && !audio.className.includes('ready')) {
-                audio.play().then(() => {
-                    dot.classList.remove('bg-neutral-600');
-                    dot.classList.add('bg-white', 'animate-pulse');
-                    text.innerText = "MUTE AUDIO";
-                    audio.classList.add('ready');
-                }).catch(() => {});
+        function debounceScroll() {
+            isTransitioning = true;
+            setTimeout(() => { isTransitioning = false; }, 800);
+        }
+
+        // Manual Audio Toggle Control logic
+        audioToggle.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(() => console.log("Audio block bypass required."));
+                audioIcon.className = 'fa-solid fa-pause';
+            } else {
+                audio.pause();
+                audioIcon.className = 'fa-solid fa-play';
             }
-        }, { once: true });
+        });
+
+        // Fluid Kinematic Cursor Engine
+        const cursor = document.getElementById('custom-cursor');
+        let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            if (!cursor.style.opacity || cursor.style.opacity === '0') cursor.style.opacity = '1';
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.transform = `translate3d(${cursorX - cursor.offsetWidth / 2}px, ${cursorY - cursor.offsetHeight / 2}px, 0)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        function bindCursorEvents() {
+            document.querySelectorAll('.clickable, button, a, .group').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.remove('w-3', 'h-3');
+                    cursor.classList.add('w-12', 'h-12', 'bg-ink');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('w-12', 'h-12');
+                    cursor.classList.add('w-3', 'h-3');
+                });
+            });
+        }
+        document.addEventListener("DOMContentLoaded", bindCursorEvents);
     </script>
 </body>
 </html>
