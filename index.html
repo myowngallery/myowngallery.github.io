@@ -17,6 +17,7 @@
                         showroom: '#f5f4f0', 
                         ink: '#1c1b18',      
                         studio: '#ebeae4',   
+                        shadowroom: '#ebeae4',
                     }
                 }
             }
@@ -124,7 +125,6 @@
     </div>
 
     <script>
-        // Data Pipelines
         const dataSet = {
             liveries: {
                 greeting: "The following images are part of my portfolio of ERLC liveries.",
@@ -136,9 +136,7 @@
                     "assets/images/showroom_05.png"
                 ],
                 folder: [
-                    // First 5 showcase duplicates
                     "assets/images/showroom_01.png", "assets/images/showroom_02.png", "assets/images/showroom_03.png", "assets/images/showroom_04.png", "assets/images/showroom_05.png",
-                    // Next 5 extra unique livery photos
                     "assets/images/archive_01.png", "assets/images/archive_02.png", "assets/images/archive_03.png", "assets/images/archive_04.png", "assets/images/archive_06.png"
                 ]
             },
@@ -152,10 +150,8 @@
                     "assets/images/banner_05.png"
                 ],
                 folder: [
-                    // First 5 showcase duplicates
                     "assets/images/banner_01.png", "assets/images/banner_02.png", "assets/images/banner_03.png", "assets/images/banner_04.png", "assets/images/banner_05.png",
-                    // Next 5 extra unique banner photos
-                    "assets/images/archive_01.png", "assets/images/archive_02.png", "assets/images/archive_03.png", "assets/images/archive_04.png", "assets/images/archive_06.png"
+                    "assets/images/banner_archive_01.png", "assets/images/banner_archive_02.png", "assets/images/banner_archive_03.png", "assets/images/banner_archive_04.png", "assets/images/banner_archive_05.png"
                 ]
             }
         };
@@ -200,7 +196,6 @@
 
             const imgFitClass = currentTab === 'banners' ? 'object-contain bg-stone-900/5' : 'object-cover';
 
-            // Custom Clean Rounded Rectangles (rounded-3xl on wrapper, rounded-2xl on interior)
             dataSet[currentTab].showcase.forEach((imgSrc, i) => {
                 carousel.innerHTML += `
                     <div id="card-${i}" class="showcase-card absolute w-[80%] md:w-[55%] h-[50vh] md:h-[60vh] bg-showroom border border-stone-200 p-3 shadow-md flex items-center justify-center transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-3xl">
