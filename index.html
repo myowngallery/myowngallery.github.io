@@ -60,12 +60,10 @@
 </head>
 <body class="bg-showroom text-ink font-sans selection:bg-ink selection:text-showroom antialiased overflow-hidden w-screen h-screen">
 
-    <!-- Micro-Minimalist Custom Cursor Wrapper -->
     <div id="custom-cursor" class="hidden md:flex fixed top-0 left-0 w-3 h-3 bg-ink rounded-full pointer-events-none z-50 items-center justify-start text-[9px] tracking-widest text-ink uppercase font-light opacity-0 transition-[width,height,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
         <span id="cursor-text" class="opacity-0 transition-opacity duration-300 pointer-events-none"></span>
     </div>
 
-    <!-- Lightbox Modal for up-close viewing -->
     <div id="lightbox" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-500 backdrop-blur-md">
         <button onclick="closeLightbox()" class="clickable absolute top-6 right-6 text-white/70 hover:text-white text-2xl z-50 p-4">
             <i class="fa-solid fa-xmark"></i>
@@ -75,7 +73,6 @@
         </div>
     </div>
 
-    <!-- Ambience Controls Section -->
     <div class="fixed bottom-6 right-6 z-50 bg-showroom/80 dark:bg-showroom/60 backdrop-blur-md border border-stone-300/60 dark:border-stone-800 px-4 py-2.5 rounded-full flex items-center gap-3 shadow-sm hover:border-stone-400 dark:hover:border-stone-600 transition-all">
         <span class="text-[10px] tracking-widest text-stone-500 dark:text-stone-400 uppercase font-light">Ambience</span>
         <button id="audio-toggle" class="clickable w-6 h-6 flex items-center justify-center text-xs text-ink/70 hover:text-ink focus:outline-none transition-colors">
@@ -88,7 +85,6 @@
         <header class="w-full flex justify-between items-center">
             <div class="flex items-center gap-4">
                 <span class="font-serif italic text-xl tracking-wide">@vu5a</span>
-                <!-- Theme Controller Toggle Switch -->
                 <button onclick="toggleTheme()" class="clickable w-8 h-8 rounded-full border border-stone-300/60 dark:border-stone-800 flex items-center justify-center text-xs text-stone-500 dark:text-stone-400 hover:text-ink hover:border-stone-400 transition-all" title="Toggle Light/Dark">
                     <i id="theme-icon" class="fa-solid fa-moon"></i>
                 </button>
@@ -120,7 +116,7 @@
         </footer>
     </main>
 
-    <div id="showcase-panel" class="fixed top-0 right-0 w-full h-full bg-studio z-30 transform translate-x-full transition-transform duration-[1000s] cubic-bezier(0.16, 1, 0.3, 1) flex flex-col shadow-2xl border-l border-stone-200 dark:border-stone-800">
+    <div id="showcase-panel" class="fixed top-0 right-0 w-full h-full bg-studio z-30 transform translate-x-full transition-transform duration-[1000ms] cubic-bezier(0.16, 1, 0.3, 1) flex flex-col shadow-2xl border-l border-stone-200 dark:border-stone-800">
         
         <header class="p-6 md:px-12 md:py-8 flex justify-between items-center bg-studio/90 backdrop-blur-md border-b border-stone-200/60 dark:border-stone-800/60 z-40">
             <div>
@@ -135,7 +131,7 @@
             <div id="stack-carousel" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center transition-all duration-700 pointer-events-none">
                 </div>
 
-            <div id="folder-view" class="absolute inset-x-6 bottom-6 top-6 md:inset-12 bg-showroom border border-stone-300/80 dark:border-stone-800 shadow-2xl rounded-lg transform translate-y-full opacity-0 transition-all duration-[900ms] cubic-bezier(0.16, 1, 0.3, 1) z-20 flex flex-col p-6 overflow-hidden">
+            <div id="folder-view" class="absolute inset-x-6 bottom-6 top-6 md:inset-12 bg-showroom border border-stone-300/80 dark:border-stone-800 shadow-2xl rounded-lg transform translate-y-full opacity-0 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 flex flex-col p-6 overflow-hidden">
                 <div class="flex justify-between items-center border-b border-stone-200 dark:border-stone-800 pb-4 mb-6">
                     <div class="flex items-center gap-3">
                         <i class="fa-regular fa-folder-open text-stone-500"></i>
@@ -168,6 +164,7 @@
                     "assets/images/showroom_04.png",
                     "assets/images/showroom_05.png"
                 ],
+                // Skipped archive_05 explicitly
                 folder: [
                     "assets/images/showroom_01.png", "assets/images/showroom_02.png", "assets/images/showroom_03.png", "assets/images/showroom_04.png", "assets/images/showroom_05.png",
                     "assets/images/archive_01.png", "assets/images/archive_02.png", "assets/images/archive_03.png", "assets/images/archive_04.png", "assets/images/archive_06.png"
@@ -243,7 +240,7 @@
 
             dataSet[currentTab].showcase.forEach((imgSrc, i) => {
                 carousel.innerHTML += `
-                    <div id="card-${i}" onclick="openLightbox('${imgSrc}')" class="showcase-card viewable-target absolute w-[80%] md:w-[55%] h-[50vh] md:h-[60vh] bg-showroom border border-stone-200 p-3 shadow-md flex items-center justify-center transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-3xl pointer-events-auto">
+                    <div id="card-${i}" onclick="openLightbox('${imgSrc}')" class="showcase-card viewable-target absolute w-[80%] md:w-[55%] h-[50vh] md:h-[60vh] bg-showroom border border-stone-200 p-3 shadow-md flex items-center justify-center transform transition-all duration-700 ease-[cubic-bezier(0.16, 1, 0.3, 1)] rounded-3xl pointer-events-auto">
                         <img src="${imgSrc}" alt="Showcase ${i+1}" class="w-full h-full ${imgFitClass} shadow-inner rounded-2xl pointer-events-none">
                     </div>
                 `;
@@ -347,6 +344,7 @@
                 advanceStack();
                 debounceScroll();
             } else if (e.deltaY < -20) {
+                networkRetreat();
                 retreatStack();
                 debounceScroll();
             }
@@ -427,15 +425,15 @@
         });
 
         function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.15;
-            cursorY += (mouseY - cursorY) * 0.15;
+            // FIXED: Raised interpolation speed to 0.35 from 0.15 for tighter tracking latency
+            cursorX += (mouseX - cursorX) * 0.35;
+            cursorY += (mouseY - cursorY) * 0.35;
             cursor.style.transform = `translate3d(${cursorX - cursor.offsetWidth / 2}px, ${cursorY - cursor.offsetHeight / 2}px, 0)`;
             requestAnimationFrame(animateCursor);
         }
         animateCursor();
 
         function bindCursorEvents() {
-            // Standard Interactive Elements
             document.querySelectorAll('.clickable, button, a').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     cursor.classList.remove('w-3', 'h-3');
@@ -447,7 +445,6 @@
                 });
             });
 
-            // Expandable Portfolio Work
             document.querySelectorAll('.viewable-target').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     cursor.classList.remove('w-3', 'h-3');
