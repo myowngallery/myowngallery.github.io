@@ -154,8 +154,8 @@
                 folder: [
                     // First 5 showcase duplicates
                     "assets/images/banner_01.png", "assets/images/banner_02.png", "assets/images/banner_03.png", "assets/images/banner_04.png", "assets/images/banner_05.png",
-                    // Next 5 extra banner photos
-                    "assets/images/archive_06.png", "assets/images/archive_02.png", "assets/images/archive_03.png", "assets/images/archive_04.png", "assets/images/archive_01.png"
+                    // Next 5 extra banner photos (Fixed: Swapped livery archive files out for banner sets)
+                    "assets/images/banner_01.png", "assets/images/banner_02.png", "assets/images/banner_03.png", "assets/images/banner_04.png", "assets/images/banner_05.png"
                 ]
             }
         };
@@ -207,11 +207,14 @@
             carousel.innerHTML = '';
             grid.innerHTML = '';
 
-            // Inject 5 Showcase Images
+            // Handle image behavior depending on whether it's wide banners or standard dimensions
+            const imgFitClass = currentTab === 'banners' ? 'object-contain bg-stone-900/5' : 'object-cover';
+
+            // Inject 5 Showcase Images (Added style dynamic for 22.37% Apple Rounding Rule)
             dataSet[currentTab].showcase.forEach((imgSrc, i) => {
                 carousel.innerHTML += `
-                    <div id="card-${i}" class="showcase-card absolute w-[80%] md:w-[55%] h-[50vh] md:h-[60vh] bg-showroom border border-stone-200 p-3 shadow-md rounded flex items-center justify-center transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                        <img src="${imgSrc}" alt="Showcase ${i+1}" class="w-full h-full object-cover rounded shadow-inner">
+                    <div id="card-${i}" class="showcase-card absolute w-[80%] md:w-[55%] h-[50vh] md:h-[60vh] bg-showroom border border-stone-200 p-3 shadow-md flex items-center justify-center transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" style="border-radius: 22.37%;">
+                        <img src="${imgSrc}" alt="Showcase ${i+1}" class="w-full h-full ${imgFitClass} shadow-inner" style="border-radius: calc(22.37% - 4px);">
                     </div>
                 `;
             });
@@ -219,8 +222,8 @@
             // Inject 10 Folder Items uniquely tied to the active tab dataset
             dataSet[currentTab].folder.forEach((imgSrc, i) => {
                 grid.innerHTML += `
-                    <div class="group relative overflow-hidden bg-stone-100 border border-stone-200 aspect-[4/3] rounded shadow-sm transition-all duration-500 hover:scale-[1.03] hover:shadow-xl clickable">
-                        <img src="${imgSrc}" alt="Archive ${i+1}" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700 ease-out">
+                    <div class="group relative overflow-hidden bg-stone-100 border border-stone-200 aspect-[4/3] shadow-sm transition-all duration-500 hover:scale-[1.03] hover:shadow-xl clickable" style="border-radius: 22.37%;">
+                        <img src="${imgSrc}" alt="Archive ${i+1}" class="w-full h-full ${imgFitClass} filter grayscale group-hover:grayscale-0 transition-all duration-700 ease-out">
                         <div class="absolute inset-0 bg-ink/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
                     </div>
                 `;
