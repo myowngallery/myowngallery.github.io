@@ -1,224 +1,177 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@vu5a — Gallery Showroom</title>
+    <title>ATELIER // SHOWROOM</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Cormorant Garamond', 'serif'],
-                    },
-                    colors: {
-                        showroom: '#f5f4f0', 
-                        ink: '#1c1b18',      
-                        studio: '#ebeae4',   
-                    }
-                }
-            }
-        }
-    </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://unpkg.com/scrollreveal"></script>
-    
     <style>
-        .reveal { opacity: 0; }
-        .grayscale-img {
-            filter: grayscale(100%);
-            transition: filter 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .group:hover .grayscale-img {
-            filter: grayscale(0%);
-            transform: scale(1.01);
-        }
-        /* Hide real cursor on desktop to prioritize custom luxury cursor */
-        @media (min-width: 768px) {
-            body, a, button, .group {
-                cursor: none !important;
-            }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@200;300;400&display=swap');
+        
+        .font-serif { font-family: 'Cormorant Garamond', serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+
+        /* Smooth scroll revealing */
+        html { scroll-behavior: smooth; }
+        
+        /* Custom fine scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb:hover { background: #333; }
     </style>
 </head>
-<body class="bg-showroom text-ink font-sans selection:bg-ink selection:text-showroom antialiased overflow-x-hidden">
+<body class="bg-[#050505] text-[#e5e5e5] font-sans antialiased selection:bg-neutral-900 selection:text-white">
 
-    <div id="custom-cursor" class="hidden md:flex fixed top-0 left-0 w-3 h-3 bg-ink rounded-full pointer-events-none z-50 mix-blend-difference items-center justify-center text-[9px] tracking-widest text-showroom uppercase font-light opacity-0 transition-[width,height,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
-
-    <div class="fixed bottom-6 right-6 z-50 bg-showroom/80 backdrop-blur-md border border-stone-300/60 px-4 py-2.5 rounded-full flex items-center gap-3 shadow-sm transition-all duration-300 hover:border-stone-400">
-        <span class="text-[10px] tracking-widest text-stone-500 uppercase font-light">Ambience</span>
-        <button id="audio-toggle" class="w-6 h-6 flex items-center justify-center text-xs text-ink/70 hover:text-ink focus:outline-none transition-colors">
-            <i id="audio-icon" class="fa-solid fa-play"></i>
+    <!-- Minimalist Header -->
+    <header class="fixed top-0 left-0 w-full z-50 mix-blend-difference px-8 py-6 flex justify-between items-center">
+        <a href="#" class="text-xs tracking-[0.3em] font-light uppercase text-white hover:opacity-70 transition">MYOWNGALLERY</a>
+        
+        <!-- Audio Ambient Trigger -->
+        <button id="audioBtn" class="text-[10px] tracking-widest text-neutral-400 hover:text-white transition flex items-center gap-3 group">
+            <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 group-hover:bg-white transition" id="audioDot"></span>
+            <span id="audioStatusText">PLAY AUDIO</span>
         </button>
-        <audio id="bg-audio" loop src="assets/audio/ambience.mp3"></audio>
-    </div>
-
-    <header class="w-full py-8 px-6 md:px-12 flex justify-between items-center fixed top-0 left-0 z-40 bg-gradient-to-b from-showroom via-showroom/80 to-transparent">
-        <a href="#" class="font-serif italic text-xl tracking-wide text-ink">@vu5a</a>
-        <nav class="flex gap-8 text-[11px] tracking-[0.2em] uppercase text-stone-500 font-light">
-            <a href="#works" class="hover:text-ink transition-colors">Showroom</a>
-            <a href="#archives" class="hover:text-ink transition-colors">Archive</a>
-            <a href="https://discord.gg/2gxHQVQyQC" target="_blank" class="hover:text-ink transition-colors"><i class="fa-brands fa-discord mr-1"></i> Connect</a>
-        </nav>
     </header>
 
-    <section class="min-h-screen flex flex-col justify-center px-6 md:px-24">
-        <div class="max-w-4xl reveal">
-            <span class="text-xs tracking-[0.3em] uppercase text-stone-400 font-light block mb-4">Digital Atelier</span>
-            <h1 class="font-serif text-5xl md:text-7xl font-light text-ink leading-[1.15] tracking-tight mb-8">
-                A quiet space for <br><span class="italic font-normal text-stone-500">visual curation</span>.
-            </h1>
-            <p class="font-sans font-light text-stone-600 text-sm md:text-base max-w-sm tracking-wide leading-relaxed">
-                Minimalist structural design, curated typography, and high-contrast imagery built specifically for @vu5a.
-            </p>
+    <!-- Hidden Audio Element -->
+    <audio id="bgAmbience" loop src="assets/audio/ambience.mp3"></audio>
+
+    <!-- Hero Introduction Split -->
+    <section class="min-h-screen flex flex-col justify-end px-8 pb-24 pt-32 max-w-7xl mx-auto border-b border-neutral-950">
+        <div class="max-w-3xl space-y-4">
+            <p class="text-xs tracking-[0.2em] text-neutral-500 uppercase">Automotive Architecture / Digital Liveries</p>
+            <h2 class="text-4xl md:text-7xl font-serif font-light italic text-neutral-200 leading-tight">
+                A curatorial archive of form, silhouette, and precision identity.
+            </h2>
         </div>
     </section>
 
-    <section id="works" class="px-6 md:px-0 py-24 border-t border-stone-200 max-w-3xl mx-auto">
-        <div class="mb-24 text-center reveal">
-            <h2 class="font-serif text-4xl italic text-ink font-light">The Showroom</h2>
-            <p class="text-xs tracking-[0.2em] uppercase text-stone-400 mt-2">01 / Selected Vertical Stack</p>
-        </div>
-        <div id="best-works-container" class="space-y-32 md:space-y-48"></div>
-    </section>
+    <!-- Editorial Gallery Main Grid -->
+    <main class="max-w-7xl mx-auto px-8 py-24 space-y-40">
 
-    <section id="archives" class="px-6 md:px-24 py-24 bg-studio border-t border-stone-200">
-        <div class="mb-16 max-w-3xl mx-auto md:mx-0 reveal">
-            <h2 class="font-serif text-3xl italic text-ink font-light">Curated Archives</h2>
-            <p class="text-xs tracking-[0.2em] uppercase text-stone-400 mt-2">02 / Secondary Extended Index</p>
-        </div>
-        <div id="archives-container" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
-    </section>
+        <!-- Section 1: Main Showroom Exhibition (Asymmetrical Staggered Layout) -->
+        <section class="space-y-24">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-neutral-900 pb-6">
+                <span class="text-[10px] tracking-[0.3em] text-neutral-600 uppercase font-bold">01 / CURRENT EXHIBITS</span>
+                <h3 class="text-xl font-serif font-light text-neutral-400 mt-2 md:mt-0">The Showroom Suite</h3>
+            </div>
 
-    <footer class="py-12 px-6 md:px-24 bg-studio text-center md:text-left flex flex-col md:flex-row justify-between items-center text-xs tracking-widest text-stone-400 font-light gap-4">
-        <div>&copy; 2026 @vu5a. All Rights Reserved.</div>
-        <div>
-            <a href="#" class="hover:text-stone-600 transition-colors uppercase">Return to Top &uarr;</a>
-        </div>
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-y-24 md:gap-x-12 items-center">
+                <!-- Large Feature Image -->
+                <div class="md:col-span-8 space-y-4">
+                    <div class="overflow-hidden bg-neutral-950 aspect-[16/10] grayscale hover:grayscale-0 transition-all duration-700">
+                        <img src="assets/images/showroom_01.png" alt="Showroom 01" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                
+                <!-- Staggered Right Side Image -->
+                <div class="md:col-span-4 md:mt-32 space-y-4">
+                    <div class="overflow-hidden bg-neutral-950 aspect-[4/5] grayscale hover:grayscale-0 transition-all duration-700">
+                        <img src="assets/images/showroom_02.png" alt="Showroom 02" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <!-- Left Staggered Image -->
+                <div class="md:col-span-5 space-y-4">
+                    <div class="overflow-hidden bg-neutral-950 aspect-[4/5] grayscale hover:grayscale-0 transition-all duration-700">
+                        <img src="assets/images/showroom_03.png" alt="Showroom 03" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <!-- Double Wide Right Side -->
+                <div class="md:col-span-7 space-y-4">
+                    <div class="overflow-hidden bg-neutral-950 aspect-[16/10] grayscale hover:grayscale-0 transition-all duration-700">
+                        <img src="assets/images/showroom_04.png" alt="Showroom 04" class="w-full h-full object-cover">
+                    </div>
+                </div>
+
+                <!-- Centered Final Showroom Piece -->
+                <div class="md:col-start-3 md:col-span-8 space-y-4 pt-12">
+                    <div class="overflow-hidden bg-neutral-950 aspect-[16/9] grayscale hover:grayscale-0 transition-all duration-700">
+                        <img src="assets/images/showroom_05.png" alt="Showroom 05" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Archive Collection (Pure Minimalist Vertical Scroll) -->
+        <section class="space-y-24 pt-12">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-neutral-900 pb-6">
+                <span class="text-[10px] tracking-[0.3em] text-neutral-600 uppercase font-bold">02 / HISTORICAL EDITIONS</span>
+                <h3 class="text-xl font-serif font-light text-neutral-400 mt-2 md:mt-0">The Livery Archive</h3>
+            </div>
+
+            <!-- Massive alternating display stack -->
+            <div class="space-y-48">
+                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
+                    <img src="assets/images/archive_01.png" alt="Archive 01" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
+                </div>
+
+                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
+                    <img src="assets/images/archive_02.png" alt="Archive 02" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
+                </div>
+
+                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
+                    <img src="assets/images/archive_03.png" alt="Archive 03" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
+                </div>
+
+                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
+                    <img src="assets/images/archive_04.png" alt="Archive 04" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
+                </div>
+
+                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
+                    <img src="assets/images/archive_05.png" alt="Archive 05" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
+                </div>
+
+                <div class="max-w-4xl mx-auto overflow-hidden bg-neutral-950 aspect-video group">
+                    <img src="assets/images/archive_06.png" alt="Archive 06" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition duration-700">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Refined Footer -->
+    <footer class="w-full py-16 px-8 border-t border-neutral-950 flex flex-col md:flex-row justify-between items-center text-[10px] tracking-[0.2em] text-neutral-600 uppercase gap-4">
+        <div>&copy; 2026 MYOWNGALLERY.</div>
+        <div class="font-serif italic lowercase text-xs text-neutral-500">curated with absolute discretion</div>
     </footer>
 
+    <!-- Seamless Audio Player System -->
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            
-            // 1. DATA PIPELINES (Configured with local .png image targets)
-            const bestWorks = [
-                { title: "Safety Car Livery", category: "Showcase 01", year: "2026", img: "assets/images/showroom_01.png" },
-                { title: "Apple Computers Livery", category: "Showcase 02", year: "2026", img: "assets/images/showroom_02.png" },
-                { title: "LVMPD x Vegas Golden Knights Livery", category: "Showcase 03", year: "2026", img: "assets/images/showroom_03.png" },
-                { title: "City of Fairbanks Police Livery", category: "Showcase 04", year: "2025", img: "assets/images/showroom_04.png" },
-                { title: "Australian Federal Police Livery", category: "Showcase 05", year: "2026", img: "assets/images/showroom_05.png" }
-            ];
+        const audio = document.getElementById('bgAmbience');
+        const audioBtn = document.getElementById('audioBtn');
+        const dot = document.getElementById('audioDot');
+        const text = document.getElementById('audioStatusText');
 
-            const archiveItems = [
-                { img: "assets/images/archive_01.png" },
-                { img: "assets/images/archive_02.png" },
-                { img: "assets/images/archive_03.png" },
-                { img: "assets/images/archive_04.png" },
-                { img: "assets/images/archive_05.png" },
-                { img: "assets/images/archive_06.png" }
-            ];
-
-            // 2. LAYOUT RENDER ENGINE
-            const bestWorksContainer = document.getElementById('best-works-container');
-            bestWorks.forEach((work) => {
-                bestWorksContainer.innerHTML += `
-                    <div class="flex flex-col group reveal items-center">
-                        <div class="w-full overflow-hidden border border-stone-200 shadow-sm bg-stone-100">
-                            <img src="${work.img}" alt="${work.title}" class="w-full h-[55vh] md:h-[70vh] object-cover grayscale-img">
-                        </div>
-                        <div class="w-full mt-6 flex justify-between items-baseline px-1">
-                            <h3 class="font-serif text-xl md:text-2xl font-light text-ink tracking-wide">${work.title}</h3>
-                            <div class="flex items-center gap-3 text-[10px] tracking-widest text-stone-400 uppercase font-light">
-                                <span>${work.category}</span>
-                                <span>&middot;</span>
-                                <span>${work.year}</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            const archivesContainer = document.getElementById('archives-container');
-            archiveItems.forEach(item => {
-                archivesContainer.innerHTML += `
-                    <div class="group bg-showroom border border-stone-200/70 p-4 flex flex-col justify-between transition-all duration-300 hover:border-stone-400 shadow-sm reveal">
-                        <div class="overflow-hidden border border-stone-200">
-                            <img src="${item.img}" alt="Archive Work" class="w-full h-64 object-cover grayscale-img">
-                        </div>
-                    </div>
-                `;
-            });
-
-            // 3. CINEMATIC INTERACTIVE TIMELINES (ScrollReveal)
-            ScrollReveal().reveal('.reveal', {
-                delay: 150,
-                distance: '60px',
-                duration: 1200,
-                origin: 'bottom',
-                interval: 100,
-                easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
-                mobile: true
-            });
-
-            // 4. AMBIENT AUDIO SYSTEM
-            const audio = document.getElementById('bg-audio');
-            const audioToggle = document.getElementById('audio-toggle');
-            const audioIcon = document.getElementById('audio-icon');
-
-            audioToggle.addEventListener('click', () => {
-                if (audio.paused) {
-                    audio.play().catch(err => console.log("Audio play blocked until user interact."));
-                    audioIcon.className = 'fa-solid fa-pause';
-                } else {
-                    audio.pause();
-                    audioIcon.className = 'fa-solid fa-play';
-                }
-            });
-
-            // 5. FLUID FOLLOWER CURSOR
-            const cursor = document.getElementById('custom-cursor');
-            let mouseX = 0, mouseY = 0;
-            let cursorX = 0, cursorY = 0;
-
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                if (cursor.style.opacity === '0' || !cursor.style.opacity) {
-                    cursor.style.opacity = '1';
-                }
-            });
-
-            function animateCursor() {
-                cursorX += (mouseX - cursorX) * 0.15;
-                cursorY += (mouseY - cursorY) * 0.15;
-                cursor.style.transform = `translate3d(${cursorX - cursor.offsetWidth / 2}px, ${cursorY - cursor.offsetHeight / 2}px, 0)`;
-                requestAnimationFrame(animateCursor);
+        audioBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    dot.classList.remove('bg-neutral-600');
+                    dot.classList.add('bg-white', 'animate-pulse');
+                    text.innerText = "MUTE AUDIO";
+                }).catch(err => console.log("Audio block active:", err));
+            } else {
+                audio.pause();
+                dot.classList.add('bg-neutral-600');
+                dot.classList.remove('bg-white', 'animate-pulse');
+                text.innerText = "PLAY AUDIO";
             }
-            animateCursor();
-
-            // Connect hovers to dynamically rendered elements
-            function bindCursorEvents() {
-                const interactiveCards = document.querySelectorAll('.group');
-                interactiveCards.forEach(card => {
-                    card.addEventListener('mouseenter', () => {
-                        cursor.classList.remove('w-3', 'h-3');
-                        cursor.classList.add('w-14', 'h-14', 'bg-ink');
-                        cursor.innerText = 'View';
-                    });
-                    card.addEventListener('mouseleave', () => {
-                        cursor.classList.remove('w-14', 'h-14');
-                        cursor.classList.add('w-3', 'h-3');
-                        cursor.innerText = '';
-                    });
-                });
-            }
-            bindCursorEvents();
         });
+
+        // Trigger safe background audio loop initialization on primitive global touch
+        document.body.addEventListener('click', () => {
+            if (audio.paused && text.innerText === "PLAY AUDIO" && !audio.className.includes('ready')) {
+                audio.play().then(() => {
+                    dot.classList.remove('bg-neutral-600');
+                    dot.classList.add('bg-white', 'animate-pulse');
+                    text.innerText = "MUTE AUDIO";
+                    audio.classList.add('ready');
+                }).catch(() => {});
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
