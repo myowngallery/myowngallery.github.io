@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATELIER // SHOWROOM</title>
+    <title>Portfolio</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -26,13 +26,23 @@
 
     <!-- Minimalist Header -->
     <header class="fixed top-0 left-0 w-full z-50 mix-blend-difference px-8 py-6 flex justify-between items-center">
-        <a href="#" class="text-xs tracking-[0.3em] font-light uppercase text-white hover:opacity-70 transition">MYOWNGALLERY</a>
+        <!-- Static Brand Name (No longer links to top) -->
+        <span class="text-xs tracking-[0.3em] font-light uppercase text-white cursor-default select-none">My Gallery</span>
         
-        <!-- Audio Ambient Trigger -->
-        <button id="audioBtn" class="text-[10px] tracking-widest text-neutral-400 hover:text-white transition flex items-center gap-3 group">
-            <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 group-hover:bg-white transition" id="audioDot"></span>
-            <span id="audioStatusText">PLAY AUDIO</span>
-        </button>
+        <!-- Controls Group -->
+        <div class="flex items-center gap-6">
+            <!-- Discord Connect Button -->
+            <a href="https://discord.gg/2gxHQVQyQC" target="_blank" rel="noopener noreferrer" class="text-[10px] tracking-widest text-neutral-400 hover:text-white transition flex items-center gap-3 group">
+                <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 group-hover:bg-[#5865F2] transition"></span>
+                <span>CONNECT</span>
+            </a>
+
+            <!-- Audio Ambient Trigger -->
+            <button id="audioBtn" class="text-[10px] tracking-widest text-neutral-400 hover:text-white transition flex items-center gap-3 group">
+                <span class="w-1.5 h-1.5 rounded-full bg-neutral-600 group-hover:bg-white transition" id="audioDot"></span>
+                <span id="audioStatusText">PLAY AUDIO</span>
+            </button>
+        </div>
     </header>
 
     <!-- Hidden Audio Element -->
@@ -43,7 +53,7 @@
         <div class="max-w-3xl space-y-4">
             <p class="text-xs tracking-[0.2em] text-neutral-500 uppercase">Automotive Architecture / Digital Liveries</p>
             <h2 class="text-4xl md:text-7xl font-serif font-light italic text-neutral-200 leading-tight">
-                A curatorial archive of form, silhouette, and precision identity.
+                The following images are part of my portfolio of ERLC liveries.
             </h2>
         </div>
     </section>
