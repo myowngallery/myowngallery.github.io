@@ -29,7 +29,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* CSS Variables handling theme colors fluidly */
         :root {
             --color-showroom: #f5f4f0;
             --color-ink: #1c1b18;
@@ -45,17 +44,15 @@
             transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
         }
 
-        /* Custom luxury cursor tweak */
         @media (min-width: 768px) {
             body, a, button, .group, .clickable, .viewable-target {
                 cursor: none !important;
             }
         }
-        /* Custom scrollbar hiding for the panel experience */
+        
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Smooth transition for active showcase cards */
         .showcase-card {
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease;
         }
@@ -63,9 +60,9 @@
 </head>
 <body class="bg-showroom text-ink font-sans selection:bg-ink selection:text-showroom antialiased overflow-hidden w-screen h-screen">
 
-    <!-- Custom Cursor with dynamic layout text -->
-    <div id="custom-cursor" class="hidden md:flex fixed top-0 left-0 w-3 h-3 bg-ink rounded-full pointer-events-none z-50 mix-blend-difference items-center justify-center text-[9px] tracking-widest text-showroom uppercase font-medium opacity-0 transition-[width,height,background-color,border-radius] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-        <span id="cursor-text" class="opacity-0 transition-opacity duration-300 pointer-events-none scale-75"></span>
+    <!-- Micro-Minimalist Custom Cursor Wrapper -->
+    <div id="custom-cursor" class="hidden md:flex fixed top-0 left-0 w-3 h-3 bg-ink rounded-full pointer-events-none z-50 items-center justify-start text-[9px] tracking-widest text-ink uppercase font-light opacity-0 transition-[width,height,background-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+        <span id="cursor-text" class="opacity-0 transition-opacity duration-300 pointer-events-none"></span>
     </div>
 
     <!-- Lightbox Modal for up-close viewing -->
@@ -201,7 +198,6 @@
         const audioToggle = document.getElementById('audio-toggle');
         const audioIcon = document.getElementById('audio-icon');
 
-        // Dark/Light Mode Switch Function
         function toggleTheme() {
             const root = document.documentElement;
             const icon = document.getElementById('theme-icon');
@@ -247,7 +243,7 @@
 
             dataSet[currentTab].showcase.forEach((imgSrc, i) => {
                 carousel.innerHTML += `
-                    <div id="card-${i}" onclick="openLightbox('${imgSrc}')" class="showcase-card viewable-target absolute w-[80%] md:w-[55%] h-[50vh] md:h-[60vh] bg-showroom border border-stone-200 dark:border-stone-800 p-3 shadow-md flex items-center justify-center transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-3xl pointer-events-auto">
+                    <div id="card-${i}" onclick="openLightbox('${imgSrc}')" class="showcase-card viewable-target absolute w-[80%] md:w-[55%] h-[50vh] md:h-[60vh] bg-showroom border border-stone-200 p-3 shadow-md flex items-center justify-center transform transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-3xl pointer-events-auto">
                         <img src="${imgSrc}" alt="Showcase ${i+1}" class="w-full h-full ${imgFitClass} shadow-inner rounded-2xl pointer-events-none">
                     </div>
                 `;
@@ -334,7 +330,6 @@
             }
         }
 
-        // Desktop Scroll Handler
         document.getElementById('showcase-panel').addEventListener('wheel', (e) => {
             if (isTransitioning) return;
             
@@ -357,7 +352,6 @@
             }
         });
 
-        // Mobile Touch Gestures
         let touchStartY = 0;
         let touchEndY = 0;
         const panel = document.getElementById('showcase-panel');
@@ -396,7 +390,6 @@
             setTimeout(() => { isTransitioning = false; }, 800);
         }
 
-        // Lightbox Mechanics
         function openLightbox(src) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
@@ -422,7 +415,7 @@
             }
         });
 
-        // Advanced Luxury Custom Cursor System
+        // Clean Minimalist Custom Cursor System
         const cursor = document.getElementById('custom-cursor');
         const cursorText = document.getElementById('cursor-text');
         let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
@@ -442,30 +435,33 @@
         animateCursor();
 
         function bindCursorEvents() {
-            // General interactive elements (buttons, external anchors)
+            // Standard Interactive Elements
             document.querySelectorAll('.clickable, button, a').forEach(el => {
                 el.addEventListener('mouseenter', () => {
-                    cursor.className = "hidden md:flex fixed top-0 left-0 w-12 h-12 bg-ink rounded-full pointer-events-none z-50 mix-blend-difference items-center justify-center text-[9px] tracking-widest text-showroom uppercase font-medium duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
-                    cursorText.innerText = "";
-                    cursorText.classList.add('opacity-0');
+                    cursor.classList.remove('w-3', 'h-3');
+                    cursor.classList.add('w-4', 'h-4');
                 });
                 el.addEventListener('mouseleave', () => {
-                    cursor.className = "hidden md:flex fixed top-0 left-0 w-3 h-3 bg-ink rounded-full pointer-events-none z-50 mix-blend-difference items-center justify-center text-[9px] tracking-widest text-showroom uppercase font-medium duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
-                    cursorText.classList.add('opacity-0');
+                    cursor.classList.remove('w-4', 'h-4');
+                    cursor.classList.add('w-3', 'h-3');
                 });
             });
 
-            // Specific targets that can display structural popover images
+            // Expandable Portfolio Work
             document.querySelectorAll('.viewable-target').forEach(el => {
                 el.addEventListener('mouseenter', () => {
-                    cursor.className = "hidden md:flex fixed top-0 left-0 w-16 h-16 bg-ink rounded-full pointer-events-none z-50 mix-blend-difference items-center justify-center text-[9px] tracking-widest text-showroom uppercase font-medium duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
-                    cursorText.innerText = "View";
-                    cursorText.classList.remove('opacity-0');
+                    cursor.classList.remove('w-3', 'h-3');
+                    cursor.classList.add('w-4', 'h-4');
+                    
+                    cursorText.innerText = "— view";
+                    cursorText.className = "absolute left-6 text-[10px] tracking-widest text-ink uppercase font-light opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap";
                 });
                 el.addEventListener('mouseleave', () => {
-                    cursor.className = "hidden md:flex fixed top-0 left-0 w-3 h-3 bg-ink rounded-full pointer-events-none z-50 mix-blend-difference items-center justify-center text-[9px] tracking-widest text-showroom uppercase font-medium duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]";
+                    cursor.classList.remove('w-4', 'h-4');
+                    cursor.classList.add('w-3', 'h-3');
+                    
                     cursorText.innerText = "";
-                    cursorText.classList.add('opacity-0');
+                    cursorText.className = "opacity-0 transition-opacity duration-300 pointer-events-none";
                 });
             });
         }
