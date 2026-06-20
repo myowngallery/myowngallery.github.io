@@ -131,7 +131,7 @@
             <div id="stack-carousel" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center transition-all duration-700 pointer-events-none">
                 </div>
 
-            <div id="folder-view" class="absolute inset-x-6 bottom-6 top-6 md:inset-12 bg-showroom border border-stone-300/80 dark:border-stone-800 shadow-2xl rounded-lg transform translate-y-full opacity-0 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 flex flex-col p-6 overflow-hidden">
+            <div id="folder-view" class="absolute inset-x-6 bottom-6 top-6 md:inset-12 bg-showroom border border-stone-300/80 dark:border-stone-800 shadow-2xl rounded-lg transform translate-y-full opacity-0 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 flex flex-col p-6 overflow-hidden">
                 <div class="flex justify-between items-center border-b border-stone-200 dark:border-stone-800 pb-4 mb-6">
                     <div class="flex items-center gap-3">
                         <i class="fa-regular fa-folder-open text-stone-500"></i>
@@ -164,7 +164,6 @@
                     "assets/images/showroom_04.png",
                     "assets/images/showroom_05.png"
                 ],
-                // Skipped archive_05 explicitly
                 folder: [
                     "assets/images/showroom_01.png", "assets/images/showroom_02.png", "assets/images/showroom_03.png", "assets/images/showroom_04.png", "assets/images/showroom_05.png",
                     "assets/images/archive_01.png", "assets/images/archive_02.png", "assets/images/archive_03.png", "assets/images/archive_04.png", "assets/images/archive_06.png"
@@ -344,7 +343,7 @@
                 advanceStack();
                 debounceScroll();
             } else if (e.deltaY < -20) {
-                networkRetreat();
+                // FIXED: Dropped broken reference to networkRetreat()
                 retreatStack();
                 debounceScroll();
             }
@@ -413,7 +412,6 @@
             }
         });
 
-        // Clean Minimalist Custom Cursor System
         const cursor = document.getElementById('custom-cursor');
         const cursorText = document.getElementById('cursor-text');
         let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
@@ -425,7 +423,6 @@
         });
 
         function animateCursor() {
-            // FIXED: Raised interpolation speed to 0.35 from 0.15 for tighter tracking latency
             cursorX += (mouseX - cursorX) * 0.35;
             cursorY += (mouseY - cursorY) * 0.35;
             cursor.style.transform = `translate3d(${cursorX - cursor.offsetWidth / 2}px, ${cursorY - cursor.offsetHeight / 2}px, 0)`;
