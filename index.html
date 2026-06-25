@@ -18,7 +18,7 @@
             --navbar-height: 48px;
             --nav-bg: rgba(255, 255, 255, 0.8);
             --border-color: rgba(0, 0, 0, 0.08);
-            --overlay-bg: rgba(255, 255, 255, 0.95);
+            --overlay-bg: rgba(255, 255, 255, 0.96);
         }
 
         [data-theme="dark"] {
@@ -29,7 +29,7 @@
             --apple-text-muted: #8e8e93;
             --nav-bg: rgba(0, 0, 0, 0.8);
             --border-color: rgba(255, 255, 255, 0.15);
-            --overlay-bg: rgba(0, 0, 0, 0.95);
+            --overlay-bg: rgba(0, 0, 0, 0.96);
         }
 
         * {
@@ -47,7 +47,7 @@
             overflow-x: hidden;
         }
 
-        /* 1. Apple-Spec Global Navigation */
+        /* Apple-Spec Navigation Bar */
         nav {
             position: fixed;
             top: 0;
@@ -84,11 +84,6 @@
             align-items: center;
         }
 
-        .nav-links li {
-            display: flex;
-            align-items: center;
-        }
-
         .nav-links li:not(:first-child)::before {
             content: "•";
             color: var(--apple-black);
@@ -104,7 +99,6 @@
             font-size: 13px;
             font-weight: 400;
             transition: opacity 0.2s ease, color 0.2s ease;
-            letter-spacing: 0.1px;
         }
 
         .nav-links a:hover {
@@ -112,7 +106,6 @@
             color: var(--apple-blue);
         }
 
-        /* Premium Theme Button */
         .theme-toggle-btn {
             background: none;
             border: none;
@@ -123,16 +116,14 @@
             justify-content: center;
             padding: 4px;
             opacity: 0.8;
-            transition: opacity 0.2s;
         }
-        .theme-toggle-btn:hover { opacity: 1; }
         .theme-toggle-btn .sun-icon { display: none; }
         [data-theme="dark"] .theme-toggle-btn .sun-icon { display: block; }
         [data-theme="dark"] .theme-toggle-btn .moon-icon { display: none; }
 
-        /* 2. Master Zoom & Sticky Animation Container */
+        /* Master Zoom Container */
         .hero-scroll-zone {
-            height: 220vh; /* Smooth, generous room for desktop trackpads */
+            height: 220vh;
             position: relative;
         }
 
@@ -151,11 +142,7 @@
             transform: translateX(-50%);
             padding: 80px 40px 40px 40px;
             max-width: 1200px;
-            margin: 0 auto;
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
             z-index: 10;
             will-change: opacity, transform;
         }
@@ -164,17 +151,32 @@
             font-size: 56px;
             font-weight: 700;
             letter-spacing: -1.5px;
-            line-height: 1.08349;
+            line-height: 1.08;
             color: var(--apple-black);
         }
 
+        /* Fix 3: Prominent Apple-Spec Floating Scroll Indicator */
         .scroll-indicator {
-            font-size: 12px;
-            font-weight: 400;
-            color: var(--apple-text-muted);
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--apple-text-muted);
+            pointer-events: none;
+            will-change: opacity;
+            animation: appleBounce 2s infinite ease-in-out;
+        }
+
+        @keyframes appleBounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, 6px); }
         }
 
         .image-wrapper {
@@ -207,7 +209,7 @@
             cursor: pointer;
         }
 
-        /* 3. Layout Grid & Fixed Image Aspect Ratios */
+        /* Presentation Grid Layout */
         .product-section {
             position: relative;
             background: var(--apple-bg);
@@ -222,7 +224,6 @@
             font-weight: 700;
             letter-spacing: -1.5px;
             margin-bottom: 20px;
-            color: var(--apple-black);
         }
 
         .explore-btn {
@@ -234,14 +235,10 @@
             padding: 8px 22px;
             border-radius: 20px;
             text-decoration: none;
-            transition: background-color 0.2s, transform 0.2s;
             cursor: pointer;
             border: none;
         }
-        .explore-btn:hover {
-            background-color: var(--apple-blue-hover);
-            transform: scale(1.02);
-        }
+        .explore-btn:hover { background-color: var(--apple-blue-hover); }
 
         .grid-container {
             max-width: 1200px;
@@ -249,32 +246,30 @@
             padding: 0 40px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 30px;
+            gap: 35px;
         }
 
         .display-card {
             background: var(--apple-gray);
-            border-radius: 22px;
+            border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.02);
             border: 1px solid var(--border-color);
         }
 
-        /* Fix: Ensures aspect ratio preservation. Text is completely visible without truncation */
+        /* Fix 1: Removed rigid aspect-ratios and cover cropping. Images map perfectly without zoom artifacts */
         .display-card img {
             width: 100%;
             height: auto;
-            aspect-ratio: 16 / 9; 
-            object-fit: cover;
             display: block;
             cursor: pointer;
             transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
         .display-card img:hover {
-            transform: scale(1.02);
+            transform: scale(1.015);
         }
 
-        /* 4. Native Overlay Modals (Gallery & Lightbox View) */
+        /* Fix 2: Fluid Overlay Framework (Hardware Accelerated, No Display Toggles) */
         .overlay {
             position: fixed;
             top: 0;
@@ -282,43 +277,45 @@
             width: 100%;
             height: 100%;
             background: var(--overlay-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
             z-index: 2000;
-            display: none;
             opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
             overflow-y: auto;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.4s;
         }
 
         .overlay.active {
-            display: block;
             opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
         }
 
         .close-overlay {
             position: fixed;
-            top: 20px;
+            top: 24px;
             right: 40px;
             background: var(--apple-gray);
             color: var(--apple-black);
             border: none;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 2100;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .gallery-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 100px 40px;
+            padding: 120px 40px;
             text-align: center;
         }
 
@@ -330,53 +327,53 @@
         }
 
         .gallery-footer {
-            margin-top: 60px;
-            padding: 40px 0;
+            margin-top: 80px;
+            padding: 60px 0;
             border-top: 1px solid var(--border-color);
         }
 
         .gallery-footer p {
             color: var(--apple-text-muted);
-            margin-bottom: 20px;
-            font-size: 15px;
+            margin-bottom: 24px;
+            font-size: 16px;
         }
 
-        /* Lightbox Specific Styles */
+        /* Lightbox Specific Blueprint */
         .lightbox-overlay {
-            justify-content: center;
+            display: flex;
             align-items: center;
+            justify-content: center;
             overflow: hidden;
         }
-        .lightbox-overlay.active { display: flex; }
 
         .lightbox-img {
-            max-width: 90vw;
-            max-height: 85vh;
+            max-width: 92vw;
+            max-height: 88vh;
             object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-            transform: scale(0.95);
-            transition: transform 0.3s ease;
+            border-radius: 16px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            transform: scale(0.95) translate3d(0,0,0);
+            will-change: transform;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
-        .lightbox-overlay.active .lightbox-img { transform: scale(1); }
+        .lightbox-overlay.active .lightbox-img {
+            transform: scale(1) translate3d(0,0,0);
+        }
 
-        /* Responsive Mobile Architecture */
+        /* Responsive Breakpoints */
         @media (max-width: 768px) {
-            /* Fix: Reduce scroll pad distance strictly on mobile for snappy performance */
-            .hero-scroll-zone { height: 120vh; }
+            /* Fix 3: Accelerated Mobile Pacing Configuration */
+            .hero-scroll-zone { height: 115vh; }
             
             nav { padding: 0 20px; }
-            .nav-right { gap: 16px; }
-            .nav-links li:not(:first-child)::before { margin: 0 8px; }
             .text-wrapper { padding: 40px 20px; }
-            h1 { font-size: 36px; }
-            .scroll-indicator { display: none; }
+            h1 { font-size: 38px; }
+            .scroll-indicator { bottom: 24px; }
             .image-wrapper { width: calc(100% - 40px); bottom: 20px; height: 55vh; }
             .product-section { padding: 60px 0; }
             .product-section h2 { font-size: 38px; }
-            .grid-container { grid-template-columns: 1fr; padding: 0 20px; gap: 20px; }
-            .close-overlay { right: 20px; top: 15px; }
-            .gallery-title { font-size: 32px; }
+            .grid-container { grid-template-columns: 1fr; padding: 0 20px; gap: 24px; }
+            .close-overlay { right: 20px; top: 16px; }
         }
     </style>
 </head>
@@ -389,9 +386,9 @@
                 <li><a href="#liveries">Works</a></li>
                 <li><a href="#banners">Banners</a></li>
             </ul>
-            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark Mode">
-                <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="18.36" x2="5.64" y2="19.78"></line><line x1="18.36" y1="4.22" x2="19.78" y2="5.64"></line></svg>
+            <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="18.36" x2="5.64" y2="19.78"></line><line x1="18.36" y1="4.22" x2="19.78" y2="5.64"></line></svg>
             </button>
         </div>
     </nav>
@@ -400,15 +397,16 @@
         <div class="sticky-viewport">
             <div class="text-wrapper" id="heroText">
                 <h1>Design Works</h1>
-                <div class="scroll-indicator">
-                    Scroll Down 
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-                </div>
+            </div>
+
+            <div class="scroll-indicator" id="scrollHint">
+                <span>Scroll down to explore</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
             </div>
 
             <div class="image-wrapper" id="heroImageWrapper">
                 <div class="showcase-frame" id="heroFrame">
-                    <img src="assets/images/showroom_01.png" id="heroImg" alt="Featured Livery Design" class="lightbox-trigger">
+                    <img src="assets/images/showroom_01.png" id="heroImg" alt="Featured Work" class="lightbox-trigger">
                 </div>
             </div>
         </div>
@@ -419,10 +417,10 @@
         <button class="explore-btn" data-category="liveries">Explore Gallery</button>
 
         <div class="grid-container">
-            <div class="display-card"><img src="assets/images/showroom_02.png" alt="Livery Design 2" class="lightbox-trigger"></div>
-            <div class="display-card"><img src="assets/images/showroom_03.png" alt="Livery Design 3" class="lightbox-trigger"></div>
-            <div class="display-card"><img src="assets/images/showroom_04.png" alt="Livery Design 4" class="lightbox-trigger"></div>
-            <div class="display-card"><img src="assets/images/showroom_05.png" alt="Livery Design 5" class="lightbox-trigger"></div>
+            <div class="display-card"><img src="assets/images/showroom_02.png" alt="Livery Design" class="lightbox-trigger"></div>
+            <div class="display-card"><img src="assets/images/showroom_03.png" alt="Livery Design" class="lightbox-trigger"></div>
+            <div class="display-card"><img src="assets/images/showroom_04.png" alt="Livery Design" class="lightbox-trigger"></div>
+            <div class="display-card"><img src="assets/images/showroom_05.png" alt="Livery Design" class="lightbox-trigger"></div>
         </div>
     </section>
 
@@ -431,10 +429,10 @@
         <button class="explore-btn" data-category="banners">Explore Gallery</button>
 
         <div class="grid-container">
-            <div class="display-card"><img src="assets/images/banner_01.png" alt="Banner Design 1" class="lightbox-trigger"></div>
-            <div class="display-card"><img src="assets/images/banner_02.png" alt="Banner Design 2" class="lightbox-trigger"></div>
-            <div class="display-card"><img src="assets/images/banner_03.png" alt="Banner Design 3" class="lightbox-trigger"></div>
-            <div class="display-card"><img src="assets/images/banner_04.png" alt="Banner Design 4" class="lightbox-trigger"></div>
+            <div class="display-card"><img src="assets/images/banner_01.png" alt="Banner Design" class="lightbox-trigger"></div>
+            <div class="display-card"><img src="assets/images/banner_02.png" alt="Banner Design" class="lightbox-trigger"></div>
+            <div class="display-card"><img src="assets/images/banner_03.png" alt="Banner Design" class="lightbox-trigger"></div>
+            <div class="display-card"><img src="assets/images/banner_04.png" alt="Banner Design" class="lightbox-trigger"></div>
         </div>
     </section>
 
@@ -445,7 +443,7 @@
             <div class="grid-container" id="galleryGrid"></div>
             
             <div class="gallery-footer">
-                <p>Want custom high-end designs built for your community?</p>
+                <p>Want high-end customized artwork tailored for your server?</p>
                 <a href="https://discord.gg/2gxHQVQyQC" target="_blank" class="explore-btn">Join My Discord</a>
             </div>
         </div>
@@ -457,37 +455,28 @@
     </div>
 
     <script>
-        // Data Mapping Engine from Asset Directory
+        // Media Asset Map Configuration
         const mediaAssets = {
             liveries: [
-                'assets/images/showroom_01.png',
-                'assets/images/showroom_02.png',
-                'assets/images/showroom_03.png',
-                'assets/images/showroom_04.png',
-                'assets/images/showroom_05.png',
-                'assets/images/archive_01.png',
-                'assets/images/archive_02.png',
-                'assets/images/archive_03.png',
-                'assets/images/archive_04.png',
-                'assets/images/archive_06.png' // Clean bypass applied to skip archive_05
+                'assets/images/showroom_01.png', 'assets/images/showroom_02.png',
+                'assets/images/showroom_03.png', 'assets/images/showroom_04.png',
+                'assets/images/showroom_05.png', 'assets/images/archive_01.png',
+                'assets/images/archive_02.png', 'assets/images/archive_03.png',
+                'assets/images/archive_04.png', 'assets/images/archive_06.png' // skipped archive_05
             ],
             banners: [
-                'assets/images/banner_01.png',
-                'assets/images/banner_02.png',
-                'assets/images/banner_03.png',
-                'assets/images/banner_04.png',
-                'assets/images/banner_05.png',
-                'assets/images/banner_archive_01.png',
-                'assets/images/banner_archive_02.png',
-                'assets/images/banner_archive_03.png',
-                'assets/images/banner_archive_04.png',
-                'assets/images/banner_archive_05.png'
+                'assets/images/banner_01.png', 'assets/images/banner_02.png',
+                'assets/images/banner_03.png', 'assets/images/banner_04.png',
+                'assets/images/banner_05.png', 'assets/images/banner_archive_01.png',
+                'assets/images/banner_archive_02.png', 'assets/images/banner_archive_03.png',
+                'assets/images/banner_archive_04.png', 'assets/images/banner_archive_05.png'
             ]
         };
 
-        // DOM Element Registry
+        // Cache Elements
         const scrollZone = document.querySelector('.hero-scroll-zone');
         const heroText = document.getElementById('heroText');
+        const scrollHint = document.getElementById('scrollHint');
         const imageWrapper = document.getElementById('heroImageWrapper');
         const heroFrame = document.getElementById('heroFrame');
         const heroImg = document.getElementById('heroImg');
@@ -502,36 +491,28 @@
         const lightboxImg = document.getElementById('lightboxImg');
         const closeLightbox = document.getElementById('closeLightbox');
 
-        // --- 1. Ambient Audio Interaction Routine ---
+        // Audio System Routine
         const backgroundMusic = new Audio('assets/audio/ambience.mp3');
         backgroundMusic.loop = true;
 
-        function startAudioEngine() {
-            backgroundMusic.play().catch(() => {
-                // Catches browser restrictions if user gesture requirements aren't completely ready
-            });
-            ['click', 'touchstart', 'scroll'].forEach(event => {
-                window.removeEventListener(event, startAudioEngine);
-            });
+        function initializeAudio() {
+            backgroundMusic.play().catch(() => {});
+            ['click', 'touchstart', 'scroll'].forEach(e => window.removeEventListener(e, initializeAudio));
         }
-        ['click', 'touchstart', 'scroll'].forEach(event => {
-            window.addEventListener(event, startAudioEngine, { passive: true });
-        });
+        ['click', 'touchstart', 'scroll'].forEach(e => window.addEventListener(e, initializeAudio, { passive: true }));
 
-
-        // --- 2. Advanced Adaptive Dark / Light Architecture ---
+        // Theme Configuration Engine
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
 
         themeToggle.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const targetTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', targetTheme);
-            localStorage.setItem('theme', targetTheme);
+            const current = document.documentElement.getAttribute('data-theme');
+            const target = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
         });
 
-
-        // --- 3. Fluid Precision Interpolation Scroll-Zoom Loop ---
+        // Precision Morphing Animation Pipeline
         let ticking = false;
         window.addEventListener('scroll', () => {
             if (!ticking) {
@@ -539,19 +520,24 @@
                     const zoneRect = scrollZone.getBoundingClientRect();
                     const isMobile = window.innerWidth <= 768;
                     
-                    // Calculation track alterations dynamically modify pacing between viewports
-                    const totalZoomScroll = isMobile 
-                        ? (scrollZone.offsetHeight - window.innerHeight) * 0.7 
+                    // Acceleration modifier maps tighter thresholds on handheld viewports
+                    const trackLength = isMobile 
+                        ? (scrollZone.offsetHeight - window.innerHeight) * 0.65 
                         : (scrollZone.offsetHeight - window.innerHeight);
                     
-                    let progress = -zoneRect.top / totalZoomScroll;
+                    let progress = -zoneRect.top / trackLength;
                     progress = Math.max(0, Math.min(1, progress));
 
-                    // Text Fades & Ascends Out
+                    // Text Fades
                     heroText.style.opacity = 1 - (progress * 2.2);
-                    heroText.style.transform = `translate(-50%, ${-progress * 60}px)`;
+                    heroText.style.transform = `translate3d(-50%, ${-progress * 60}px, 0)`;
 
-                    // Frame Transformations
+                    // Fix 3: Snappy Indicator Fade Out Execution
+                    if (scrollHint) {
+                        scrollHint.style.opacity = 1 - (progress * 4);
+                    }
+
+                    // Geometry Calculations
                     if (!isMobile) {
                         imageWrapper.style.bottom = `${(1 - progress) * 40}px`;
                         imageWrapper.style.width = `calc(100% - ${(1 - progress) * 80}px)`;
@@ -565,7 +551,6 @@
                         heroFrame.style.borderRadius = `${(1 - progress) * 18}px`;
                     }
 
-                    // Parallax Image Context
                     heroImg.style.transform = `scale(${1 + (progress * 0.04)})`;
                     ticking = false;
                 });
@@ -573,25 +558,21 @@
             }
         }, { passive: true });
 
-
-        // --- 4. Dynamic Gallery Integration Engine ---
+        // Dynamic Collection Assembler
         document.querySelectorAll('.explore-btn[data-category]').forEach(btn => {
             btn.addEventListener('click', () => {
-                const category = btn.getAttribute('data-category');
+                const cat = btn.getAttribute('data-category');
                 galleryGrid.innerHTML = '';
-                galleryTitle.textContent = category.charAt(0).toUpperCase() + category.slice(1) + ' Collection';
+                galleryTitle.textContent = cat.charAt(0).toUpperCase() + cat.slice(1) + ' Collection';
 
-                mediaAssets[category].forEach(src => {
+                mediaAssets[cat].forEach(src => {
                     const card = document.createElement('div');
                     card.className = 'display-card';
                     
                     const img = document.createElement('img');
                     img.src = src;
-                    img.alt = 'Portfolio Image';
-                    img.className = 'lightbox-trigger';
-                    
-                    // Attach dynamic lightbox callback logic to runtime elements
-                    img.addEventListener('click', () => launchLightbox(src));
+                    img.alt = 'Portfolio Item';
+                    img.addEventListener('click', () => activeLightbox(src));
 
                     card.appendChild(img);
                     galleryGrid.appendChild(card);
@@ -604,33 +585,28 @@
 
         closeGallery.addEventListener('click', () => {
             galleryOverlay.classList.remove('active');
-            if(!lightboxOverlay.classList.contains('active')) {
-                document.body.style.overflow = '';
-            }
+            if (!lightboxOverlay.classList.contains('active')) document.body.style.overflow = '';
         });
 
-
-        // --- 5. Fluid Lightbox Presentation Controls ---
-        function launchLightbox(source) {
-            lightboxImg.src = source;
+        // Fix 2: Ultra-Smooth Layered Lightbox Management
+        function activeLightbox(url) {
+            lightboxImg.src = url;
             lightboxOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
 
-        document.querySelectorAll('.lightbox-trigger').forEach(trigger => {
-            trigger.addEventListener('click', () => launchLightbox(trigger.src));
+        document.querySelectorAll('.lightbox-trigger').forEach(el => {
+            el.addEventListener('click', () => activeLightbox(el.src));
         });
 
-        function closeLightboxOverlay() {
+        function clearLightbox() {
             lightboxOverlay.classList.remove('active');
-            if (!galleryOverlay.classList.contains('active')) {
-                document.body.style.overflow = '';
-            }
+            if (!galleryOverlay.classList.contains('active')) document.body.style.overflow = '';
         }
 
-        closeLightbox.addEventListener('click', closeLightboxOverlay);
+        closeLightbox.addEventListener('click', clearLightbox);
         lightboxOverlay.addEventListener('click', (e) => {
-            if (e.target === lightboxOverlay) closeLightboxOverlay();
+            if (e.target === lightboxOverlay) clearLightbox();
         });
     </script>
 </body>
