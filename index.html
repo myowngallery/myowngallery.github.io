@@ -3,278 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>vu5a Design | Premium Liveries & Banners</title>
-    <!-- Import Apple-style Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>vu5a | Design Works</title>
+    <!-- Premium Apple-style typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Base Variables & Apple Dark Mode Palette */
         :root {
-            --bg-color: #000000;
-            --surface-color: #1d1d1f;
-            --text-main: #f5f5f7;
-            --text-muted: #86868b;
-            --accent-blue: #2997ff;
-            --accent-hover: #0071e3;
+            --apple-black: #1d1d1f;
+            --apple-gray: #f5f5f7;
+            --apple-text-muted: #86868b;
+            --navbar-height: 48px;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            -webkit-font-smoothing: antialiased;
+            background-color: #ffffff;
+            color: var(--apple-black);
             overflow-x: hidden;
         }
 
-        a { text-decoration: none; }
-
-        /* Frosted Glass Navbar */
+        /* 1. Apple-Spec Global Navigation */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 5%;
+            height: var(--navbar-height);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            padding: 0 40px;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: var(--text-main);
+        .nav-logo {
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: -0.2px;
+            color: var(--apple-black);
+            text-decoration: none;
         }
 
-        .nav-cta {
-            background-color: var(--text-main);
-            color: var(--bg-color);
-            padding: 0.6rem 1.2rem;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: transform 0.2s ease;
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
         }
 
-        .nav-cta:hover { transform: scale(1.05); }
+        .nav-links a {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--apple-black);
+            opacity: 0.8;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+            letter-spacing: 0.1px;
+        }
 
-        /* Hero Section */
-        header {
-            height: 100vh;
+        .nav-links a:hover {
+            opacity: 1;
+            color: #0071e3; /* Subtle Apple Blue accent on hover */
+        }
+
+        /* 2. Seamless Hero Presentation */
+        .hero-container {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
+            min-height: 100vh;
+            padding-top: var(--navbar-height);
+        }
+
+        .text-wrapper {
+            padding: 80px 40px 40px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
         }
 
         h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            font-weight: 800;
-            letter-spacing: -2px;
-            margin-bottom: 1rem;
-            line-height: 1.1;
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            line-height: 1.08349;
+            color: var(--apple-black);
         }
 
-        .subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: var(--text-muted);
+        .scroll-indicator {
+            font-size: 12px;
             font-weight: 400;
-            margin-bottom: 2.5rem;
-            max-width: 600px;
+            color: var(--apple-text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .primary-btn {
-            background-color: var(--accent-blue);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-
-        .primary-btn:hover { background-color: var(--accent-hover); }
-
-        /* Bento Box Grid Section */
-        .portfolio-section {
-            padding: 5rem 5%;
+        /* 3. High-End Image Presentation Container */
+        .image-wrapper {
+            flex-grow: 1;
+            width: 100%;
+            padding: 0 40px 40px 40px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            font-weight: 800;
-        }
-
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            grid-auto-rows: 400px;
-        }
-
-        .bento-item {
-            background-color: var(--surface-color);
-            border-radius: 24px;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            position: relative;
+        .showcase-frame {
+            width: 100%;
+            height: 65vh;
+            border-radius: 28px; /* Smooth rounded device-like corners */
             overflow: hidden;
-            transition: transform 0.3s ease;
+            background-color: var(--apple-gray);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .bento-item:hover { transform: scale(0.98); }
-
-        /* Placeholder styles for your images - Replace the background URLs with your actual image links! */
-        .item-1 {
-            grid-column: span 2;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1000&auto=format&fit=crop') center/cover;
-        }
-        
-        .item-2 {
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), url('https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?q=80&w=1000&auto=format&fit=crop') center/cover;
+        .showcase-frame:hover {
+            transform: scale(1.01); /* Soft fluid reaction on hover */
         }
 
-        .item-3 {
-            grid-column: span 1;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent), var(--surface-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        .showcase-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Keeps image beautifully scaled without stretching */
+            object-position: center;
         }
 
-        .bento-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            z-index: 2;
-        }
-
-        .bento-desc {
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-            z-index: 2;
-        }
-
-        /* Footer */
-        footer {
-            padding: 6rem 20px;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            margin-top: 4rem;
-        }
-
-        footer h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Scroll Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        /* Responsive scaling for mobile screens */
         @media (max-width: 768px) {
-            .bento-grid { grid-template-columns: 1fr; }
-            .item-1 { grid-column: span 1; }
+            nav { padding: 0 20px; }
+            .nav-links { gap: 20px; }
+            .text-wrapper { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 16px;
+                padding: 40px 20px 20px 20px;
+            }
+            h1 { font-size: 38px; }
+            .image-wrapper { padding: 0 20px 20px 20px; }
+            .showcase-frame { height: 45vh; border-radius: 18px; }
+            .scroll-indicator { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Sticky Frosted Navbar -->
+    <!-- Apple-Spec Clean Navbar -->
     <nav>
-        <div class="logo">vu5a.</div>
-        <a href="https://discord.gg/2gxHQVQyQC" target="_blank" class="nav-cta">Join Discord</a>
+        <a href="#" class="nav-logo">@vu5a</a>
+        <ul class="nav-links">
+            <li><a href="#">Works</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="https://discord.gg/2gxHQVQyQC" target="_blank">Discord</a></li>
+        </ul>
     </nav>
 
-    <!-- Product Launch Hero -->
-    <header class="reveal active">
-        <h1>Pro. Design.</h1>
-        <p class="subtitle">Custom Liveries, Banners, and Embeds engineered to make your community stand out.</p>
-        <a href="https://discord.gg/2gxHQVQyQC" target="_blank" class="primary-btn">Commission Now</a>
-    </header>
-
-    <!-- The Bento Box Gallery -->
-    <section class="portfolio-section">
-        <h2 class="section-title reveal">The Gallery.</h2>
-        
-        <div class="bento-grid">
-            <!-- Large Card: Liveries -->
-            <div class="bento-item item-1 reveal">
-                <div>
-                    <h3 class="bento-title">Liveries</h3>
-                    <p class="bento-desc">High-fidelity custom wraps.</p>
-                </div>
-            </div>
-
-            <!-- Medium Card: Banners -->
-            <div class="bento-item item-2 reveal">
-                <div>
-                    <h3 class="bento-title">Banners</h3>
-                    <p class="bento-desc">Sleek Discord aesthetics.</p>
-                </div>
-            </div>
-
-            <!-- Text Card: Embeds -->
-            <div class="bento-item item-3 reveal">
-                <div>
-                    <h3 class="bento-title">Custom Embeds</h3>
-                    <p class="bento-desc">Clean, structured server messaging.</p>
-                </div>
+    <!-- Restructured Hero Layout -->
+    <div class="hero-container">
+        <div class="text-wrapper">
+            <h1>Design Works</h1>
+            <div class="scroll-indicator">
+                Scroll down 
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
             </div>
         </div>
-    </section>
 
-    <!-- Minimalist Footer -->
-    <footer class="reveal">
-        <h2>Ready to upgrade?</h2>
-        <a href="https://discord.gg/2gxHQVQyQC" target="_blank" class="primary-btn">Join the Server</a>
-        <p style="color: var(--text-muted); margin-top: 3rem; font-size: 0.8rem;">© 2026 vu5a Design.</p>
-    </footer>
+        <!-- The Showcase Viewport -->
+        <div class="image-wrapper">
+            <div class="showcase-frame">
+                <!-- Replace 'mockup.jpg' with your live image URL once uploaded to your repo -->
+                <img src="mockup.jpg" alt="Featured Livery Design">
+            </div>
+        </div>
+    </div>
 
-    <!-- JavaScript for Smooth Scroll Reveals -->
-    <script>
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        // Run on scroll and on load
-        window.addEventListener("scroll", reveal);
-        reveal();
-    </script>
 </body>
 </html>
