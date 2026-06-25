@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>vu5a | Design Works</title>
-    <!-- Premium Apple-style typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>@vu5a | Premium Design Works</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --apple-black: #1d1d1f;
-            --apple-gray: #f5f5f7;
             --apple-text-muted: #86868b;
-            --navbar-height: 48px;
+            --apple-blue: #0071e3;
+            --apple-blue-hover: #0077ed;
         }
 
         * {
@@ -24,17 +23,17 @@
         }
 
         body {
-            background-color: #ffffff;
+            background-color: #000000;
             color: var(--apple-black);
             overflow-x: hidden;
         }
 
-        /* 1. Apple-Spec Global Navigation */
+        /* Clean Premium Apple Navbar */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            height: var(--navbar-height);
+            height: 52px;
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -48,145 +47,217 @@
 
         .nav-logo {
             font-weight: 700;
-            font-size: 14px;
-            letter-spacing: -0.2px;
+            font-size: 15px;
             color: var(--apple-black);
             text-decoration: none;
+            letter-spacing: -0.2px;
         }
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 24px;
             list-style: none;
+            align-items: center;
         }
 
-        .nav-links a {
-            font-size: 12px;
+        .nav-links li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
             font-weight: 400;
             color: var(--apple-black);
-            opacity: 0.8;
+        }
+
+        /* Styled Premium Dot Separators */
+        .nav-links li::before {
+            content: "•";
+            color: var(--apple-black);
+            font-size: 10px;
+            opacity: 0.5;
+        }
+        .nav-links li:first-child::before { display: none; }
+
+        .nav-links a {
+            color: var(--apple-black);
             text-decoration: none;
-            transition: opacity 0.2s ease;
-            letter-spacing: 0.1px;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .nav-links a:hover { opacity: 1; }
+
+        /* SECTION 1: Dynamic Zoom Landing Container */
+        .zoom-scroll-zone {
+            height: 160vh; /* Extra height creates the scroll room for zooming */
+            background-color: #000;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            opacity: 1;
-            color: #0071e3; /* Subtle Apple Blue accent on hover */
-        }
-
-        /* 2. Seamless Hero Presentation */
-        .hero-container {
+        .sticky-wrapper {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            padding-top: var(--navbar-height);
+            justify-content: center;
+            align-items: center;
         }
 
-        .text-wrapper {
-            padding: 80px 40px 40px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .zoom-frame {
+            width: 80vw;
+            height: 70vh;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: transform 0.1s ease-out; /* Keeps animation buttery smooth */
+            will-change: transform;
+        }
+
+        .zoom-frame img {
             width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
+            height: 100%;
+            object-fit: cover;
         }
 
-        h1 {
+        /* SECTIONS 2 & 3: Apple Light Mode Product Templates */
+        .product-section {
+            position: relative;
+            background: linear-gradient(180deg, #eaf4fa 0%, #ffffff 300px, #ffffff 100%);
+            padding-top: 100px;
+            padding-bottom: 120px;
+            text-align: center;
+            z-index: 2;
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.05);
+        }
+
+        .product-section.banners-zone {
+            background: linear-gradient(180deg, #f2f2f7 0%, #ffffff 300px, #ffffff 100%);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .product-section h2 {
             font-size: 56px;
             font-weight: 700;
             letter-spacing: -1.5px;
-            line-height: 1.08349;
+            margin-bottom: 20px;
             color: var(--apple-black);
         }
 
-        .scroll-indicator {
-            font-size: 12px;
-            font-weight: 400;
-            color: var(--apple-text-muted);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        /* Apple Precision Pill Button */
+        .explore-btn {
+            display: inline-block;
+            background-color: var(--apple-blue);
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
+        }
+        .explore-btn:hover {
+            background-color: var(--apple-blue-hover);
         }
 
-        /* 3. High-End Image Presentation Container */
-        .image-wrapper {
-            flex-grow: 1;
-            width: 100%;
-            padding: 0 40px 40px 40px;
-            max-width: 1400px;
-            margin: 0 auto;
+        /* Showcases Grids using your layout file system */
+        .grid-container {
+            max-width: 1200px;
+            margin: 80px auto 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
         }
 
-        .showcase-frame {
-            width: 100%;
-            height: 65vh;
-            border-radius: 28px; /* Smooth rounded device-like corners */
+        .display-card {
+            background: #f5f5f7;
+            border-radius: 22px;
             overflow: hidden;
-            background-color: var(--apple-gray);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .display-card:hover {
+            transform: scale(1.02);
         }
 
-        .showcase-frame:hover {
-            transform: scale(1.01); /* Soft fluid reaction on hover */
-        }
-
-        .showcase-frame img {
+        .display-card img {
             width: 100%;
-            height: 100%;
-            object-fit: cover; /* Keeps image beautifully scaled without stretching */
-            object-position: center;
+            height: 320px;
+            object-fit: cover;
+            display: block;
         }
 
-        /* Responsive scaling for mobile screens */
         @media (max-width: 768px) {
             nav { padding: 0 20px; }
-            .nav-links { gap: 20px; }
-            .text-wrapper { 
-                flex-direction: column; 
-                align-items: flex-start; 
-                gap: 16px;
-                padding: 40px 20px 20px 20px;
-            }
-            h1 { font-size: 38px; }
-            .image-wrapper { padding: 0 20px 20px 20px; }
-            .showcase-frame { height: 45vh; border-radius: 18px; }
-            .scroll-indicator { display: none; }
+            .nav-links { gap: 12px; }
+            .product-section h2 { font-size: 38px; }
+            .grid-container { grid-template-columns: 1fr; padding: 0 20px; }
+            .zoom-frame { width: 95vw; height: 50vh; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Apple-Spec Clean Navbar -->
     <nav>
         <a href="#" class="nav-logo">@vu5a</a>
         <ul class="nav-links">
-            <li><a href="#">Works</a></li>
+            <li><a href="#liveries">Works</a></li>
             <li><a href="#">About</a></li>
             <li><a href="https://discord.gg/2gxHQVQyQC" target="_blank">Discord</a></li>
         </ul>
     </nav>
 
-    <!-- Restructured Hero Layout -->
-    <div class="hero-container">
-        <div class="text-wrapper">
-            <h1>Design Works</h1>
-            <div class="scroll-indicator">
-                Scroll down 
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-            </div>
-        </div>
-
-        <!-- The Showcase Viewport -->
-        <div class="image-wrapper">
-            <div class="showcase-frame">
-                <!-- Replace 'mockup.jpg' with your live image URL once uploaded to your repo -->
-                <img src="mockup.jpg" alt="Featured Livery Design">
+    <div class="zoom-scroll-zone">
+        <div class="sticky-wrapper">
+            <div class="zoom-frame" id="heroFrame">
+                <img src="assets/images/showroom_01.png" alt="Featured Livery Showroom">
             </div>
         </div>
     </div>
+
+    <section class="product-section" id="liveries">
+        <h2>Liveries</h2>
+        <a href="https://discord.gg/2gxHQVQyQC" target="_blank" class="explore-btn">Explore</a>
+
+        <div class="grid-container">
+            <div class="display-card"><img src="assets/images/showroom_02.png" alt="Livery Showcase 2"></div>
+            <div class="display-card"><img src="assets/images/showroom_03.png" alt="Livery Showcase 3"></div>
+            <div class="display-card"><img src="assets/images/showroom_04.png" alt="Livery Showcase 4"></div>
+            <div class="display-card"><img src="assets/images/showroom_05.png" alt="Livery Showcase 5"></div>
+        </div>
+    </section>
+
+    <section class="product-section banners-zone" id="banners">
+        <h2>Banners</h2>
+        <a href="https://discord.gg/2gxHQVQyQC" target="_blank" class="explore-btn">Explore</a>
+
+        <div class="grid-container">
+            <div class="display-card"><img src="assets/images/banner_01.png" alt="Banner Design 1"></div>
+            <div class="display-card"><img src="assets/images/banner_02.png" alt="Banner Design 2"></div>
+            <div class="display-card"><img src="assets/images/banner_03.png" alt="Banner Design 3"></div>
+            <div class="display-card"><img src="assets/images/banner_04.png" alt="Banner Design 4"></div>
+        </div>
+    </section>
+
+    <script>
+        const heroFrame = document.getElementById('heroFrame');
+        const scrollZone = document.querySelector('.zoom-scroll-zone');
+
+        window.addEventListener('scroll', () => {
+            const zoneRect = scrollZone.getBoundingClientRect();
+            const zoneHeight = scrollZone.offsetHeight - window.innerHeight;
+            
+            // Calculate exact distance scrolled through the zoom zone (0 to 1)
+            let progress = -zoneRect.top / zoneHeight;
+            progress = Math.max(0, Math.min(1, progress));
+
+            // Smoothly scale car from normal size up to filling/almost filling screen (1.25x)
+            const targetScale = 1 + (progress * 0.25);
+            
+            // Apply scale hardware transformation natively
+            heroFrame.style.transform = `scale(${targetScale})`;
+        });
+    </script>
 
 </body>
 </html>
