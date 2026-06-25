@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@vu5a | Premium Design Works</title>
+    <title>@vu5a | Design Works</title>
+    <!-- Premium Apple-style typography -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --apple-black: #1d1d1f;
+            --apple-gray: #f5f5f7;
             --apple-text-muted: #86868b;
             --apple-blue: #0071e3;
             --apple-blue-hover: #0077ed;
+            --navbar-height: 48px;
         }
 
         * {
@@ -23,17 +26,17 @@
         }
 
         body {
-            background-color: #000000;
+            background-color: #ffffff;
             color: var(--apple-black);
             overflow-x: hidden;
         }
 
-        /* Clean Premium Apple Navbar */
+        /* 1. Apple-Spec Global Navigation with Dot Separators */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            height: 52px;
+            height: var(--navbar-height);
             background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
@@ -47,10 +50,10 @@
 
         .nav-logo {
             font-weight: 700;
-            font-size: 15px;
+            font-size: 14px;
+            letter-spacing: -0.2px;
             color: var(--apple-black);
             text-decoration: none;
-            letter-spacing: -0.2px;
         }
 
         .nav-links {
@@ -63,74 +66,124 @@
         .nav-links li {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 24px;
             font-size: 13px;
             font-weight: 400;
-            color: var(--apple-black);
         }
 
-        /* Styled Premium Dot Separators */
+        /* Elegant custom bullet separation formatting matching mockup 2.jpg */
         .nav-links li::before {
             content: "•";
             color: var(--apple-black);
-            font-size: 10px;
-            opacity: 0.5;
+            font-size: 12px;
+            opacity: 0.7;
         }
-        .nav-links li:first-child::before { display: none; }
 
         .nav-links a {
             color: var(--apple-black);
             text-decoration: none;
             opacity: 0.8;
-            transition: opacity 0.2s;
+            transition: opacity 0.2s ease;
+            letter-spacing: 0.1px;
         }
-        .nav-links a:hover { opacity: 1; }
 
-        /* SECTION 1: Dynamic Zoom Landing Container */
-        .zoom-scroll-zone {
-            height: 160vh; /* Extra height creates the scroll room for zooming */
-            background-color: #000;
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--apple-blue);
+        }
+
+        /* 2. Master Zoom & Sticky Animation Container */
+        .hero-scroll-zone {
+            height: 250vh; /* Gives extra track pad room to scroll-zoom before sliding up */
             position: relative;
+            background-color: #ffffff;
         }
 
-        .sticky-wrapper {
+        .sticky-viewport {
             position: sticky;
             top: 0;
             height: 100vh;
+            width: 100%;
             overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        /* Greeting Page Header Block */
+        .text-wrapper {
+            position: absolute;
+            top: var(--navbar-height);
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 80px 40px 40px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 10;
+            will-change: opacity, transform;
+        }
+
+        h1 {
+            font-size: 56px;
+            font-weight: 700;
+            letter-spacing: -1.5px;
+            line-height: 1.08349;
+            color: var(--apple-black);
+        }
+
+        .scroll-indicator {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--apple-text-muted);
+            display: flex;
             align-items: center;
+            gap: 6px;
         }
 
-        .zoom-frame {
-            width: 80vw;
-            height: 70vh;
-            border-radius: 24px;
+        /* High-End Morphing Image Frame Container */
+        .image-wrapper {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 80px);
+            max-width: 1400px;
+            height: 65vh;
+            z-index: 5;
+            will-change: width, height, bottom, max-width;
+        }
+
+        .showcase-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 28px;
             overflow: hidden;
-            transition: transform 0.1s ease-out; /* Keeps animation buttery smooth */
-            will-change: transform;
+            background-color: var(--apple-gray);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
         }
 
-        .zoom-frame img {
+        .showcase-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
+            will-change: transform;
         }
 
-        /* SECTIONS 2 & 3: Apple Light Mode Product Templates */
+        /* 3. Apple Layout Presentation Sections */
         .product-section {
             position: relative;
-            background: linear-gradient(180deg, #eaf4fa 0%, #ffffff 300px, #ffffff 100%);
-            padding-top: 100px;
-            padding-bottom: 120px;
+            background: linear-gradient(180deg, #eaf4fa 0%, #ffffff 400px, #ffffff 100%);
+            padding: 120px 0;
             text-align: center;
-            z-index: 2;
-            box-shadow: 0 -20px 40px rgba(0,0,0,0.05);
+            z-index: 20;
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.03);
         }
 
         .product-section.banners-zone {
-            background: linear-gradient(180deg, #f2f2f7 0%, #ffffff 300px, #ffffff 100%);
+            background: linear-gradient(180deg, #f2f2f7 0%, #ffffff 400px, #ffffff 100%);
             border-top: 1px solid rgba(0,0,0,0.05);
         }
 
@@ -142,24 +195,23 @@
             color: var(--apple-black);
         }
 
-        /* Apple Precision Pill Button */
+        /* Apple Pill Interaction Button */
         .explore-btn {
             display: inline-block;
             background-color: var(--apple-blue);
             color: #ffffff;
             font-size: 14px;
             font-weight: 500;
-            padding: 8px 18px;
+            padding: 8px 22px;
             border-radius: 20px;
             text-decoration: none;
             transition: background-color 0.2s;
-            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
         }
         .explore-btn:hover {
             background-color: var(--apple-blue-hover);
         }
 
-        /* Showcases Grids using your layout file system */
+        /* Showcase Layout System from your directory mapping */
         .grid-container {
             max-width: 1200px;
             margin: 80px auto 0 auto;
@@ -173,11 +225,7 @@
             background: #f5f5f7;
             border-radius: 22px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .display-card:hover {
-            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
         }
 
         .display-card img {
@@ -190,14 +238,19 @@
         @media (max-width: 768px) {
             nav { padding: 0 20px; }
             .nav-links { gap: 12px; }
+            .nav-links li { gap: 12px; }
+            .text-wrapper { padding: 40px 20px; }
+            h1 { font-size: 36px; }
+            .scroll-indicator { display: none; }
+            .image-wrapper { width: calc(100% - 40px); bottom: 20px; height: 55vh; }
             .product-section h2 { font-size: 38px; }
             .grid-container { grid-template-columns: 1fr; padding: 0 20px; }
-            .zoom-frame { width: 95vw; height: 50vh; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Apple Navigation with Clean Dot Accents -->
     <nav>
         <a href="#" class="nav-logo">@vu5a</a>
         <ul class="nav-links">
@@ -207,26 +260,43 @@
         </ul>
     </nav>
 
-    <div class="zoom-scroll-zone">
-        <div class="sticky-wrapper">
-            <div class="zoom-frame" id="heroFrame">
-                <img src="assets/images/showroom_01.png" alt="Featured Livery Showroom">
+    <!-- Master Animation Zone -->
+    <div class="hero-scroll-zone">
+        <div class="sticky-viewport">
+            
+            <!-- Exact Greeting Text Setup -->
+            <div class="text-wrapper" id="heroText">
+                <h1>Design Works</h1>
+                <div class="scroll-indicator">
+                    Scroll Down 
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                </div>
             </div>
+
+            <!-- Morphing Framed Showroom Showcase Container -->
+            <div class="image-wrapper" id="heroImageWrapper">
+                <div class="showcase-frame" id="heroFrame">
+                    <img src="assets/images/showroom_01.png" id="heroImg" alt="Featured Livery Design">
+                </div>
+            </div>
+
         </div>
     </div>
 
+    <!-- Apple Product Presentation Block: Liveries -->
     <section class="product-section" id="liveries">
         <h2>Liveries</h2>
         <a href="https://discord.gg/2gxHQVQyQC" target="_blank" class="explore-btn">Explore</a>
 
         <div class="grid-container">
-            <div class="display-card"><img src="assets/images/showroom_02.png" alt="Livery Showcase 2"></div>
-            <div class="display-card"><img src="assets/images/showroom_03.png" alt="Livery Showcase 3"></div>
-            <div class="display-card"><img src="assets/images/showroom_04.png" alt="Livery Showcase 4"></div>
-            <div class="display-card"><img src="assets/images/showroom_05.png" alt="Livery Showcase 5"></div>
+            <div class="display-card"><img src="assets/images/showroom_02.png" alt="Livery Design 2"></div>
+            <div class="display-card"><img src="assets/images/showroom_03.png" alt="Livery Design 3"></div>
+            <div class="display-card"><img src="assets/images/showroom_04.png" alt="Livery Design 4"></div>
+            <div class="display-card"><img src="assets/images/showroom_05.png" alt="Livery Design 5"></div>
         </div>
     </section>
 
+    <!-- Apple Product Presentation Block: Banners -->
     <section class="product-section banners-zone" id="banners">
         <h2>Banners</h2>
         <a href="https://discord.gg/2gxHQVQyQC" target="_blank" class="explore-btn">Explore</a>
@@ -239,23 +309,43 @@
         </div>
     </section>
 
+    <!-- Precision Cinematic Interpolation Script -->
     <script>
+        const scrollZone = document.querySelector('.hero-scroll-zone');
+        const heroText = document.getElementById('heroText');
+        const imageWrapper = document.getElementById('heroImageWrapper');
         const heroFrame = document.getElementById('heroFrame');
-        const scrollZone = document.querySelector('.zoom-scroll-zone');
+        const heroImg = document.getElementById('heroImg');
 
         window.addEventListener('scroll', () => {
             const zoneRect = scrollZone.getBoundingClientRect();
-            const zoneHeight = scrollZone.offsetHeight - window.innerHeight;
+            const totalZoomScroll = scrollZone.offsetHeight - window.innerHeight;
             
-            // Calculate exact distance scrolled through the zoom zone (0 to 1)
-            let progress = -zoneRect.top / zoneHeight;
+            // Track exact progress inside the zoom zone (value locked between 0 and 1)
+            let progress = -zoneRect.top / totalZoomScroll;
             progress = Math.max(0, Math.min(1, progress));
 
-            // Smoothly scale car from normal size up to filling/almost filling screen (1.25x)
-            const targetScale = 1 + (progress * 0.25);
-            
-            // Apply scale hardware transformation natively
-            heroFrame.style.transform = `scale(${targetScale})`;
+            // 1. Text Fades & Cascades Outward
+            heroText.style.opacity = 1 - (progress * 2); // Fades quickly out first
+            heroText.style.transform = `translate(-50%, ${-progress * 50}px)`;
+
+            // 2. Continuous Fluid Morphing to Fullscreen Window
+            if (window.innerWidth > 768) {
+                imageWrapper.style.bottom = `${(1 - progress) * 40}px`;
+                imageWrapper.style.width = `calc(100% - ${(1 - progress) * 80}px)`;
+                imageWrapper.style.maxWidth = progress === 1 ? '100vw' : `${1400 + (window.innerWidth - 1400) * progress}px`;
+                imageWrapper.style.height = `${65 + (progress * 35)}vh`;
+                heroFrame.style.borderRadius = `${(1 - progress) * 28}px`;
+            } else {
+                // Mobile responsive animation track adjustments
+                imageWrapper.style.bottom = `${(1 - progress) * 20}px`;
+                imageWrapper.style.width = `calc(100% - ${(1 - progress) * 40}px)`;
+                imageWrapper.style.height = `${55 + (progress * 45)}vh`;
+                heroFrame.style.borderRadius = `${(1 - progress) * 18}px`;
+            }
+
+            // Subtle parallax depth effect to the car inside the box
+            heroImg.style.transform = `scale(${1 + (progress * 0.03)})`;
         });
     </script>
 
